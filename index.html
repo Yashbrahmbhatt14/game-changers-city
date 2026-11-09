@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Game Changers City</title>
 <meta name="description" content="Game Changers City: an open-city action game by TGC.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TGC City">
+<meta name="theme-color" content="#0d0a14">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Game%20Changers%20City%22%2C%22short_name%22%3A%22TGC%20City%22%2C%22display%22%3A%22fullscreen%22%2C%22orientation%22%3A%22landscape%22%2C%22background_color%22%3A%22%230d0a14%22%2C%22theme_color%22%3A%22%230d0a14%22%2C%22start_url%22%3A%22.%2F%22%7D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
@@ -76,7 +82,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--mint);outline-o
 #xhair.on::before,#xhair.on::after{background:#ff3d5a}
 #aimMark{position:absolute;width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:16px solid #ff3d5a;transform:translate(-50%,-100%);filter:drop-shadow(0 2px 0 #000)}
 #camBtn{position:absolute;pointer-events:auto;left:calc(62px + env(safe-area-inset-left,0px));top:calc(12px + env(safe-area-inset-top,0px));height:42px;padding:0 12px;border-radius:10px;border:2px solid var(--line);background:#000a;color:var(--text);font-family:var(--f-display);font-size:12px}
-.sporting #mini,.sporting #stats,.sporting #mission,.sporting #gps,.sporting #xhair,.sporting #keys,.sporting #camBtn,.sporting #aimMark{display:none!important}
+.sporting #taskHud,.sporting #fullBtn,.sporting #mini,.sporting #stats,.sporting #mission,.sporting #gps,.sporting #xhair,.sporting #keys,.sporting #camBtn,.sporting #aimMark{display:none!important}
 #sportHud{position:fixed;left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));text-align:center;pointer-events:none;background:#000b;border:1px solid var(--line);border-bottom:3px solid var(--pink);border-radius:10px;padding:6px 16px;max-width:92vw}
 #spTitle{font-family:var(--f-display);font-size:12px;color:var(--mint);letter-spacing:1px}#spScore{font-family:var(--f-display);font-size:22px;color:#fff;font-variant-numeric:tabular-nums}#spInfo{font-size:13px;color:var(--dim)}
 .smRow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0}.smRow b{font-family:var(--f-display);font-weight:400;min-width:110px;color:var(--sodium)}.smRow .btn small{display:block;font-family:var(--f-ui);font-size:11px;color:var(--dim)}
@@ -87,6 +93,19 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--mint);outline-o
 .tb.pad{width:78px;height:78px;border-radius:18px;font-size:26px;background:#ffffff1f}
 #pedals{position:absolute;right:calc(236px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;align-items:flex-end;gap:10px;pointer-events:auto}
 .tb.pedal{width:66px;height:66px;border-radius:14px;font-size:11px}.tb.pedal.gas{height:120px;background:#3df5c440;border-color:var(--mint)}
+#fullBtn{position:absolute;pointer-events:auto;left:calc(126px + env(safe-area-inset-left,0px));top:calc(12px + env(safe-area-inset-top,0px));width:42px;height:42px;border-radius:10px;border:2px solid var(--line);background:#000a;color:var(--text);font-size:20px}
+#taskHud{position:absolute;pointer-events:auto;cursor:pointer;left:50%;transform:translateX(-50%);top:calc(12px + env(safe-area-inset-top,0px));background:#000b;border:1px solid var(--line);border-left:4px solid var(--mint);padding:6px 14px;border-radius:6px;font-weight:600;max-width:min(460px,52vw);text-align:center;font-size:14px}
+#taskHud small{display:block;color:var(--mint);font-family:var(--f-display);font-size:11px;letter-spacing:.5px;font-weight:400}
+#speedFx{position:fixed;inset:0;pointer-events:none;opacity:0;background:repeating-conic-gradient(from 0deg at 50% 55%,rgba(255,255,255,0) 0deg 5deg,rgba(255,255,255,.45) 5deg 5.5deg);-webkit-mask:radial-gradient(circle at 50% 55%,transparent 32%,#000 78%);mask:radial-gradient(circle at 50% 55%,transparent 32%,#000 78%)}
+#crashFl{position:fixed;inset:0;pointer-events:none;background:#fff;opacity:0;transition:opacity .25s}
+#fade{position:fixed;inset:0;pointer-events:none;background:#000;opacity:0;transition:opacity .35s}
+#dlg{position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));z-index:6}
+.dlgBox{width:min(680px,100%);background:#0d0a14ee;border:2px solid var(--line);border-left:5px solid var(--pink);border-radius:12px;padding:12px 16px;box-shadow:0 10px 30px #000a}
+#dlgName{font-family:var(--f-display);color:var(--pink);font-size:15px}#dlgText{margin:6px 0 10px;font-size:16px;line-height:1.45;color:#fff}
+#dlgOpts{display:flex;flex-wrap:wrap;gap:8px}#dlgOpts .btn{font-size:13px;padding:9px 14px}
+.taskRow{display:grid;grid-template-columns:1fr auto;gap:2px 12px;border-bottom:1px dashed var(--line);padding:9px 0}.taskRow b{color:#fff}.taskRow small{grid-column:1;color:var(--dim)}.taskRow span{grid-column:1;color:var(--mint);font-weight:600;font-size:13px}.taskRow em{grid-row:1;grid-column:2;color:var(--sodium);font-style:normal;font-family:var(--f-display);font-size:13px}
+.taskRow.done b{color:var(--dim);text-decoration:line-through}.taskRow.cur{background:#3df5c412;border-radius:8px;padding-inline:8px}
+@media (max-width:700px),(max-height:480px){#fullBtn{left:calc(118px + env(safe-area-inset-left,0px))}#taskHud{font-size:12px;max-width:44vw}}
 #bigmap{position:fixed;inset:0;width:100%;height:100%;pointer-events:auto}
 
 #touch{position:fixed;inset:0;pointer-events:none}
@@ -170,6 +189,8 @@ kbd{font-family:var(--f-ui);font-weight:700;background:#ffffff1c;border:1px soli
   <div id="xhair" hidden></div>
   <div id="aimMark" hidden></div>
   <button id="camBtn" aria-label="Change camera">CAM</button>
+  <button id="fullBtn" aria-label="Full screen">&#x26F6;</button>
+  <div id="taskHud" hidden></div>
   <div id="lockHint" hidden>Click to look around with the mouse</div>
   <div id="toast"></div>
   <div id="hurt"></div>
@@ -204,6 +225,7 @@ kbd{font-family:var(--f-ui);font-weight:700;background:#ffffff1c;border:1px soli
       <button class="btn" id="cheatsBtn">CHEAT CODES</button>
       <button class="btn" id="newBtn" hidden>NEW GAME</button>
     </div>
+    <div class="small" id="iosTip" hidden>iPhone tip: tap Share, then <b>Add to Home Screen</b>, to play full screen like an app.</div>
     <div class="small" id="menuNote">Sound on for the radio · Landscape works best on phones</div>
   </div>
 </div>
@@ -338,6 +360,9 @@ kbd{font-family:var(--f-ui);font-weight:700;background:#ffffff1c;border:1px soli
 </div>
 <div id="sportMenu" class="screen" hidden><div class="panel"><div class="panelHead"><div><h2 id="smTitle">TGC Stadium</h2><p class="small">Pick a difficulty. Win to earn cash.</p></div><button class="close" id="smBack" aria-label="Leave">&#10005;</button></div><div id="smBody"></div></div></div>
 <div id="shopMenu" class="screen" hidden><div class="panel"><div class="panelHead"><div><h2>TGC Motors</h2></div><button class="close" id="shopBack" aria-label="Close">&#10005;</button></div><div id="shopBody"></div></div></div>
+<div id="speedFx"></div><div id="crashFl"></div><div id="fade"></div>
+<div id="dlg" hidden><div class="dlgBox"><div id="dlgName"></div><div id="dlgText"></div><div id="dlgOpts"></div></div></div>
+<div id="tasks" class="screen" hidden><div class="panel"><div class="panelHead"><div><h2>Story Tasks</h2><p class="small">Complete tasks in order to unlock the next part of the story. Each one pays cash.</p></div><button class="close" id="tasksBack" aria-label="Back">&#10005;</button></div><div id="taskBody"></div></div></div>
 <div id="rotHint" hidden>Turn your phone sideways for the best view</div>
 <div id="pause" class="screen" hidden>
   <div class="panel">
@@ -345,7 +370,9 @@ kbd{font-family:var(--f-ui);font-weight:700;background:#ffffff1c;border:1px soli
     <div class="statgrid" id="statgrid"></div>
     <div class="btnrow" style="justify-content:flex-start">
       <button class="btn primary" id="resumeBtn">RESUME</button>
+      <button class="btn mint" id="tasksBtn">STORY TASKS</button>
       <button class="btn" id="garageBtn">MY GARAGE</button>
+      <button class="btn" id="voiceBtn">VOICES: ON</button>
       <button class="btn" id="pHelp">HOW TO PLAY</button>
       <button class="btn" id="pCheats">CHEATS</button>
       <button class="btn" id="muteBtn">SOUND: ON</button>
@@ -395,7 +422,7 @@ const icx=i=>i*PT+RW/2;
 const DV=[[1,0],[0,1],[-1,0],[0,-1]],DA=[Math.PI/2,0,-Math.PI/2,Math.PI];
 const WALLC=['#f3c6d6','#bfe9e3','#f7e3b0','#c9d4f2','#f5f1e8','#e8b4a0','#9fd0e8','#d9c2f0'];
 const ROOFC=['#8a7f8f','#7b8a86','#9a8f78','#7c829a','#8f8a80','#9a7f78','#7590a0','#8c7f9a'];
-const SPECIAL={'0,2':'club','2,2':'hq','1,1':'hospital','4,1':'police','4,4':'spray','1,3':'park','3,0':'park','5,5':'park','0,5':'park','3,4':'lot'};
+const SPECIAL={'5,3':'mall','0,2':'club','2,2':'hq','1,1':'hospital','4,1':'police','4,4':'spray','1,3':'park','3,0':'park','5,5':'park','0,5':'park','3,4':'lot'};
 const blocks=[],tokenSpots=[],pickupSpots=[],palmSpots=[];
 for(let bz=0;bz<NB;bz++)for(let bx=0;bx<NB;bx++){
   const x0=bx*PT+RW,z0=bz*PT+RW,ix=x0+SW,iz=z0+SW;
@@ -416,6 +443,7 @@ for(let bz=0;bz<NB;bz++)for(let bx=0;bx<NB;bx++){
   else if(b.type==='hospital')add(4,4,46,32,{h:16,label:'H'});
   else if(b.type==='police')add(3,3,48,30,{h:13,label:'POLICE'});
   else if(b.type==='spray'){add(7,0,40,18,{h:7,label:'PAY N SPRAY'});b.pad={x:ix+10,z:iz+24,w:34,d:28}}
+  else if(b.type==='mall')add(2,2,50,50,{h:22,label:'TGC MALL'});
   else if(b.type==='lot'){for(let r=0;r<3;r++)for(let c=0;c<7;c++)b.spots.push([ix+4+c*7.6,iz+7+r*19])}
   if(R()<0.8){const side=R()*4|0,t=12+R()*40;pickupSpots.push([[x0+t,z0+2.5],[x0+BS-2.5,z0+t],[x0+t,z0+BS-2.5],[x0+2.5,z0+t]][side])}
   blocks.push(b);
@@ -588,7 +616,7 @@ const shopMat=new THREE.MeshLambertMaterial({color:0xffffff,map:shopTex,emissive
 const roofTex=canvasTex(128,128,(g)=>{g.fillStyle='#8a8790';g.fillRect(0,0,128,128);for(let i=0;i<900;i++){g.fillStyle=Math.random()<0.5?'#7a7780':'#9a97a0';g.fillRect(Math.random()*128,Math.random()*128,2,2)}},true);
 const roofMat=new THREE.MeshLambertMaterial({map:roofTex});
 const awnTex=canvasTex(64,16,(g)=>{for(let i=0;i<8;i++){g.fillStyle=i%2?'#ffffff':'#8c8c8c';g.fillRect(i*8,0,8,16)}},true);
-const SHOPS=['PIZZA','BURGERS','ARCADE','FITNESS','CAFE','RECORDS','SNEAKERS','PHARMACY','BARBER','TACOS','BANK','MOTEL','ELECTRONICS','DINER','TGC STORE','DOSA HOUSE','CHAI CORNER','ICE CREAM','GAMING ZONE','SURF SHOP'];
+const SHOPS=['KIRANA STORE','STATIONERY','CLINIC','TGC OFFICES','LAW CHAMBERS','KIRANA STORE','STATIONERY','PIZZA','BURGERS','ARCADE','FITNESS','CAFE','RECORDS','SNEAKERS','PHARMACY','BARBER','TACOS','BANK','MOTEL','ELECTRONICS','DINER','TGC STORE','DOSA HOUSE','CHAI CORNER','ICE CREAM','GAMING ZONE','SURF SHOP'];
 const NEONS=['#ff3d7f','#3df5c4','#ffd23f','#7c5cff','#ff7a1a'];
 const billboardTexts=['TGC FM 101','GAME CHANGERS','PLAY HARD','TGC ENERGY','CHAOS 98.3','STAY WILD'];let bbi=0;
 const INST={ac:[],tank:[],ant:[],slab:[],rail:[],awn:[],awnCol:[]};
@@ -618,10 +646,10 @@ for(const b of blocks)for(const q of b.bld){
       const segs=Math.max(1,Math.floor(len/9));
       for(let s=0;s<segs;s++){if(FR()<0.35)continue;const t=(s+0.5)/segs-0.5;const px=fz!==0?cx+t*len:cx+fx*(q.w/2+0.75),pz=fz!==0?cz+fz*(q.d/2+0.75):cz+t*len;
         INST.awn.push([px,3.55,pz,fz!==0?0:Math.PI/2,fz!==0?fz:fx,Math.min(7,len/segs-1)]);INST.awnCol.push(col)}
-      if(shopSigns<44&&FR()<0.55){shopSigns++;const name=pick(SHOPS);const sw=Math.min(len*0.55,9);
+      if(shopSigns<44&&FR()<0.55){shopSigns++;const name=shopSigns<=12?SHOPS[shopSigns-1]:pick(SHOPS);const sw=Math.min(len*0.55,9);
         const ry=fz===1?0:fz===-1?Math.PI:fx===1?Math.PI/2:-Math.PI/2;
         const s=sign(name,sw,1.05,pick(['#14081c','#ffffff','#1d3557','#ff3d7f','#2b2630']),pick(['#ffd23f','#ff3d7f','#3df5c4','#ffffff']),cx+fx*(q.w/2+0.12),GF+0.7,cz+fz*(q.d/2+0.12),ry);
-        s.material.side=THREE.FrontSide}
+        s.material.side=THREE.FrontSide;(window.__doors=window.__doors||[]).push([cx+fx*(q.w/2+1.4),cz+fz*(q.d/2+1.4),ry,name])}
     }
   }
   // cornice
@@ -876,11 +904,11 @@ const SKINS=['#f1c27d','#e0ac69','#c68642','#8d5524','#ffdbac','#a86b3c'];
 const HAIRS=['#1b1b1b','#3b2416','#6b4423','#b5651d','#d9c7a3','#2a2a2a'];
 const playerShirt=new THREE.MeshLambertMaterial({map:shirtTex});
 const HEROES=[
-  {id:'kai',name:'KAI',role:'Street Ronin',desc:'Silver spiky hair, red bomber jacket. Born for chaos.',o:{shirt:'#d62839',inner:'#f2f2f2',sleeves:'long',pants:'#1d1c22',skin:'#e0ac69',hair:'#e8eef7',hairStyle:'spiky',shoes:'#f2f2f2',sole:'#d62839',anime:true,scarf:'#14081c'}},
+  {id:'kai',name:'KAI',role:'Street Ronin',desc:'Silver spiky hair, red bomber jacket. Born for chaos.',o:{shirt:'#d62839',inner:'#f2f2f2',sleeves:'long',pants:'#1d1c22',skin:'#e0ac69',hair:'#e8eef7',hairStyle:'spiky',shoes:'#f2f2f2',sole:'#d62839',anime:false,scarf:'#14081c'}},
   {id:'vice',name:'VICE',role:'Beach Boss',desc:'Hawaiian shirt, shades, khaki shorts. Owns the strip.',o:{shirtMat:playerShirt,sleeves:'short',pants:'#d9cfb8',shorts:true,skin:'#d9a066',hair:'#3b2416',hairStyle:'short',shoes:'#f2f2f2',shades:true}},
-  {id:'zara',name:'ZARA',role:'Gamer Queen',desc:'Purple bob, black hoodie, pink stripe. Never misses a shot.',o:{shirt:'#1d1c22',inner:'#ff3d7f',sleeves:'long',pants:'#3f5f8f',skin:'#c68642',hair:'#7c5cff',hairStyle:'short',shoes:'#ffffff',sole:'#7c5cff',female:true,anime:true}},
-  {id:'riya',name:'RIYA',role:'Sports Star',desc:'Ponytail, neon jersey, quick feet. Runs the stadiums.',o:{shirt:'#c5f02c',sleeves:'short',pants:'#14081c',shorts:true,skin:'#e0ac69',hair:'#1b1b1b',hairStyle:'pony',shoes:'#ffffff',sole:'#ff3d7f',female:true,anime:true}},
-  {id:'nova',name:'NOVA',role:'Neon Runner',desc:'Pink ponytail, purple jacket. Fastest fists in the city.',o:{shirt:'#7c3aed',inner:'#3df5c4',sleeves:'long',pants:'#0f766e',skin:'#f1c27d',hair:'#ff5fa2',hairStyle:'pony',shoes:'#ffffff',sole:'#ff3d7f',female:true,anime:true}},
+  {id:'zara',name:'ZARA',role:'Gamer Queen',desc:'Purple bob, black hoodie, pink stripe. Never misses a shot.',o:{shirt:'#1d1c22',inner:'#ff3d7f',sleeves:'long',pants:'#3f5f8f',skin:'#c68642',hair:'#7c5cff',hairStyle:'short',shoes:'#ffffff',sole:'#7c5cff',female:true,anime:false}},
+  {id:'riya',name:'RIYA',role:'Sports Star',desc:'Ponytail, neon jersey, quick feet. Runs the stadiums.',o:{shirt:'#c5f02c',sleeves:'short',pants:'#14081c',shorts:true,skin:'#e0ac69',hair:'#1b1b1b',hairStyle:'pony',shoes:'#ffffff',sole:'#ff3d7f',female:true,anime:false}},
+  {id:'nova',name:'NOVA',role:'Neon Runner',desc:'Pink ponytail, purple jacket. Fastest fists in the city.',o:{shirt:'#7c3aed',inner:'#3df5c4',sleeves:'long',pants:'#0f766e',skin:'#f1c27d',hair:'#ff5fa2',hairStyle:'pony',shoes:'#ffffff',sole:'#ff3d7f',female:true,anime:false}},
 ];
 function makeHuman(o){
   const lite=!!o.lite;
@@ -1021,7 +1049,7 @@ function buildPlaneMesh(body,stripe){
 function buildCarMesh(c){
   const k=c.k,L=k.len,W=k.wid,H=k.h,g=new THREE.Group();
   const add=(geo,mat,x,y,z,body,parent)=>{const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);m.castShadow=SHADOWS;(parent||g).add(m);if(body)c.bodies.push(m);return m};
-  const bodyMat=c.kind==='super'?goldMat:M(c.col);
+  const bodyMat=c.kind==='super'?goldMat:paint(c.col);
   c.bodies=[];c.wheels=[];
   if(c.kind==='tank'){
     add(new THREE.BoxGeometry(W*0.72,1.0,L),M('#55663a'),0,1.05,0,true);
@@ -1184,6 +1212,66 @@ function clubTick(dt){
   if(state==='play'&&!player.car){const onFloor=Math.abs(player.x-CLUB.x)<12&&Math.abs(player.z-CLUB.z)<12;player.dance=onFloor&&player.spd<0.2&&!player.act&&!(player.aim>0)}
 }
 
+// ---------- v4: fullscreen ----------
+function goFullscreen(){const el=document.documentElement;try{const r=(el.requestFullscreen||el.webkitRequestFullscreen||el.msRequestFullscreen||function(){}).call(el,{navigationUI:'hide'});if(r&&r.then)r.then(()=>{try{screen.orientation&&screen.orientation.lock&&screen.orientation.lock('landscape').catch(()=>{})}catch(e){}}).catch(()=>{})}catch(e){}}
+function isFull(){return !!(document.fullscreenElement||document.webkitFullscreenElement)||window.matchMedia('(display-mode: standalone)').matches||navigator.standalone}
+const isIOS=/iP(hone|od|ad)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+// ---------- v4: voices + dialogue ----------
+let voicesOn=true;
+function speak(text,o){o=o||{};try{if(!voicesOn||muted||!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-IN';u.pitch=o.pitch||1;u.rate=o.rate||1.02;u.volume=0.9;
+  const vs=speechSynthesis.getVoices();const want=vs.filter(v=>/en[-_](IN|GB|US)/i.test(v.lang));if(want.length){const f=o.female;const pickV=want.find(v=>f?/female|woman|zira|samantha|veena|heera|google uk english female/i.test(v.name):/male|man|david|daniel|rishi|ravi|google uk english male/i.test(v.name))||want[0];u.voice=pickV}
+  speechSynthesis.speak(u)}catch(e){}}
+let dlg=null;
+function showDialog(name,text,opts,voice){dlg={name,opts:opts||[]};$('#dlgName').textContent=name;$('#dlgText').textContent=text;
+  const box=$('#dlgOpts');box.innerHTML='';(opts&&opts.length?opts:[{t:'OK'}]).forEach((o,i)=>{const b=document.createElement('button');b.className='btn'+(i===0?' primary':'');b.textContent=o.t;b.onclick=()=>{closeDialog();o.f&&o.f()};box.appendChild(b)});
+  $('#dlg').hidden=false;if(state==='play'){state='talk'}speak(text,voice);if(pointerLocked&&document.exitPointerLock)document.exitPointerLock()}
+function closeDialog(){$('#dlg').hidden=true;dlg=null;try{speechSynthesis.cancel()}catch(e){}if(state==='talk'){state=inside?'play':'play'}mouse.down=mouse.rdown=false}
+// ---------- v4: city people archetypes ----------
+const ARCH={
+  child:{w:8,o:()=>({shirt:pick(['#ff924c','#00bbf9','#fee440','#8ac926']),pants:pick(PANTS),shorts:true,sleeves:'short',hairStyle:pick(['short','spiky']),scale:0.62}),voice:{pitch:1.7,rate:1.15},lines:['Bhaiya, can you do a wheelie?','My school is closed today, yay!','Have you seen the TGC stadium? It is huge!','I want to be a footballer when I grow up.']},
+  teen:{w:10,o:()=>({shirt:pick(SHIRTS),pants:pick(PANTS),sleeves:'short',hairStyle:pick(['spiky','short','cap']),cap:pick(['#e94f37','#1d3557']),scale:0.9}),voice:{pitch:1.25},lines:['Bro, did you try the Hyper X? It flies!','Garba night is the best part of the year.','I am saving money for a new phone.','Let us play cricket later, okay?']},
+  young:{w:16,o:()=>({shirt:pick(SHIRTS),pants:pick(PANTS),sleeves:pick(['short','long']),hairStyle:pick(['short','buzz','spiky'])}),voice:{pitch:1},lines:['Traffic in this city is crazy today.','Have you been to TGC Mall? Huge sale going on.','I just got a job at the office tower!','The dosa at the corner shop is amazing.']},
+  youngF:{w:14,female:true,o:()=>({female:true,shirt:pick(['#f15bb5','#9b5de5','#00bbf9','#ffffff','#e94f37']),pants:pick(PANTS),sleeves:'short',hairStyle:pick(['pony','short']),hair:pick(['#1b1b1b','#3b2416','#ff5fa2'])}),voice:{pitch:1.15,female:true},lines:['The mall has fifty percent off today!','I love the music at TGC Club.','Be careful, the police are everywhere tonight.','Have you tried the badminton arena? I won on hard!']},
+  oldLady:{w:5,female:true,o:()=>({female:true,shirt:pick(['#8b1e3f','#1b998b','#f6ae2d']),dress:true,pants:'#6b4423',sleeves:'long',hair:'#d8d8d8',hairStyle:'bun',stoop:0.25,scale:0.92}),slow:0.55,voice:{pitch:1.1,rate:0.85,female:true},lines:['Beta, drive slowly, okay?','In my days this city was all fields.','Have you eaten? You look thin!','The kirana uncle gives the best biscuits.']},
+  oldMan:{w:4,o:()=>({shirt:'#e8e2d8',pants:'#5c6f84',sleeves:'long',hair:'#d8d8d8',hairStyle:'buzz',beard:true,stoop:0.2}),slow:0.6,voice:{pitch:0.8,rate:0.85},lines:['Young people are always in a hurry.','I walk to the park every morning.','Cricket was better in my time!']},
+  gym:{w:6,o:()=>({shirt:pick(['#14081c','#e94f37','#2e86ab']),pants:'#2b2a33',sleeves:'none',muscle:true,hairStyle:'buzz'}),voice:{pitch:0.85},lines:['Leg day, bro. Never skip it.','Come to the gym, I will train you.','Protein first, everything else later.']},
+  business:{w:6,o:()=>({shirt:pick(['#1d1c22','#22223b','#3c2f2f']),pants:'#1d1c22',sleeves:'long',coat:true,tie:pick(['#d62839','#1d3557','#ffd23f']),inner:'#ffffff',hairStyle:'short'}),voice:{pitch:0.92},lines:['I have a meeting in five minutes, sorry.','Time is money, my friend.','The TGC office tower is hiring.']},
+  lawyer:{w:3,o:()=>({shirt:'#111014',pants:'#111014',sleeves:'long',coat:true,inner:'#ffffff',tie:'#ffffff',hairStyle:'short'}),voice:{pitch:0.95},lines:['Objection! You are standing in my way.','Need legal help? Visit my office.','Every case can be won with the right facts.']},
+  doctor:{w:3,o:()=>({shirt:'#ffffff',pants:'#4f5d75',sleeves:'long',coat:true,coatCol:'#f4f4f8',inner:'#9fd0e8',hairStyle:'short'}),voice:{pitch:1},lines:['Drink water and sleep eight hours.','The hospital is open all night.','Please wear a helmet on bikes!']},
+};
+const ARCH_KEYS=Object.keys(ARCH),ARCH_W=ARCH_KEYS.reduce((a,k)=>a+ARCH[k].w,0);
+function pickArch(){let r=Math.random()*ARCH_W;for(const k of ARCH_KEYS){r-=ARCH[k].w;if(r<=0)return k}return'young'}
+function makeHumanX(o){const h=makeHuman(o);
+  if(o.muscle){for(const a of[h.aL,h.aR])a.scale.set(1.45,1.05,1.45);h.torso.scale.set(1.22,1,1.15)}
+  if(o.coat){const c=new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.27,0.62,12,1,true),M(o.coatCol||o.shirt));c.scale.z=0.65;c.position.y=-0.25;h.hips.add(c)}
+  if(o.tie){const t=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.34,0.02),M(o.tie));t.position.set(0,0.36,0.15);h.torso.add(t)}
+  if(o.dress){const d=new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.34,0.85,14,1,true),M(o.shirt));d.scale.z=0.75;d.position.y=-0.38;h.hips.add(d)}
+  if(o.hairStyle==='bun'){const b=new THREE.Mesh(new THREE.SphereGeometry(0.07,10,8),M(o.hair||'#ccc'));b.position.set(0,0.1,-0.11);h.head.add(b)}
+  if(o.scale)h.root.scale.setScalar(o.scale);
+  if(o.stoop)h.torso.rotation.x=o.stoop;h.stoop=o.stoop||0;
+  return h}
+// ---------- v4: footsteps, speed feel, crash feel ----------
+let lastStep=0;
+function footsteps(){if(!AC||muted||state!=='play'||player.car||player.air||player.spd<0.5)return;const k=Math.floor(player.phase/Math.PI);if(k!==lastStep){lastStep=k;noise(0.05,player.spd>6?520:380,'lowpass',player.spd>6?0.32:0.2)}}
+let baseFov=62;
+function speedFeel(dt){const c=player.car;let f=0;if(c&&state==='play'&&!c.k.air)f=clamp((Math.abs(c.speed)-12)/(c.k.max*(cheats.nitro?1.6:1)-12),0,1);
+  const target=baseFov+f*18;if(Math.abs(camera.fov-target)>0.05){camera.fov+=(target-camera.fov)*Math.min(1,dt*3);camera.updateProjectionMatrix()}
+  const el=$('#speedFx');el.style.opacity=(f*f*0.9).toFixed(3);if(f>0.75)shake=Math.max(shake,(f-0.75)*0.25)}
+function crashFX(c,power,x,z){if(c!==player.car)return;addShake(Math.min(1.4,power/25));const fl=$('#crashFl');fl.style.opacity=Math.min(0.55,power/60);setTimeout(()=>fl.style.opacity=0,90);
+  for(let i=0;i<Math.min(18,power);i++)emit(firePool,x+rnd(-0.6,0.6),rnd(0.6,1.4),z+rnd(-0.6,0.6),rnd(-7,7),rnd(1,5),rnd(-7,7),0.6,0.22,'#cfefff');
+  if(power>14&&c.bodies&&c.bodies[0]&&!c.k.air){const b=c.bodies[0];b.rotation.z=clamp(b.rotation.z+rnd(-0.025,0.025),-0.08,0.08);b.rotation.x=clamp(b.rotation.x+rnd(-0.02,0.02),-0.06,0.06);b.scale.y=Math.max(0.88,b.scale.y-0.015)}
+  if(power>22){spawnDebris(x,0.3,z,3,c.col);sfx('boom',x,z)}}
+// ---------- v4: reflective paint ----------
+var envTex=null;
+try{const pm=new THREE.PMREMGenerator(renderer);const es=new THREE.Scene();const sg=new THREE.SphereGeometry(50,32,16);const cols=[];const pa=sg.attributes.position;const top=new THREE.Color('#5aa6e8'),hor=new THREE.Color('#f2e6d8'),gnd=new THREE.Color('#4a4650');
+  for(let i=0;i<pa.count;i++){const y=pa.getY(i)/50;const c=y>0?hor.clone().lerp(top,Math.min(1,y*1.6)):hor.clone().lerp(gnd,Math.min(1,-y*4));cols.push(c.r,c.g,c.b)}sg.setAttribute('color',new THREE.Float32BufferAttribute(cols,3));
+  es.add(new THREE.Mesh(sg,new THREE.MeshBasicMaterial({vertexColors:true,side:THREE.BackSide})));const sunM=new THREE.Mesh(new THREE.SphereGeometry(4,12,8),new THREE.MeshBasicMaterial({color:0xffffff}));sunM.position.set(20,30,10);es.add(sunM);
+  envTex=pm.fromScene(es,0.02).texture;pm.dispose()}catch(e){envTex=null}
+var paintCache=new Map();
+function paint(col){if(!paintCache)return M(col);let m=paintCache.get(col);if(!m){m=envTex?new THREE.MeshStandardMaterial({color:col,metalness:0.45,roughness:0.24,envMap:envTex,envMapIntensity:1.1}):M(col);paintCache.set(col,m)}return m}
+if(envTex){carGlass.envMap=envTex;carGlass.reflectivity=0.7;carGlass.combine=THREE.MixOperation;heliGlass.envMap=envTex;heliGlass.reflectivity=0.8;rimMat.envMap=envTex;rimMat.reflectivity=0.9;goldMat.envMap=envTex;goldMat.reflectivity=0.6;for(const g of GLASS_MATS){g.envMap=envTex;g.reflectivity=0.35;g.combine=THREE.MixOperation}}
+carGlass.depthWrite=false;carGlass.opacity=0.72;
+
 // ---------- particles ----------
 function makePool(n,tex,blend){const arr=[];for(let i=0;i<n;i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthWrite:false,blending:blend,opacity:0}));s.visible=false;scene.add(s);arr.push({s,life:0,max:1,vx:0,vy:0,vz:0,size:1,grow:0,on:false})}return{arr,i:0}}
 const firePool=makePool(isTouch?90:160,glowTex,THREE.AdditiveBlending),smokePool=makePool(isTouch?60:110,smokeTex,THREE.NormalBlending);
@@ -1262,6 +1350,9 @@ function spawnTraffic(kindOverride){
 }
 function makePed(x,z,type){
   const gang=type==='gang',cop=type==='cop';
+  if(type==='civ'){const k=pickArch();const A=ARCH[k];const h=makeHumanX(Object.assign({lite:true,skin:pick(SKINS),hair:pick(HAIRS),shoes:pick(['#1d1a20','#f2f2f2','#6b4423'])},A.o()));
+    const NAMES={child:['Chintu','Pinky','Bunty','Golu'],teen:['Rohan','Kabir','Aryan','Tanya'],young:['Aarav','Vikram','Dev','Sameer'],youngF:['Priya','Sneha','Ananya','Meera'],oldLady:['Dadi Ma','Kamla Aunty','Sharda Ji'],oldMan:['Dadaji','Sharma Uncle','Gupta Ji'],gym:['Bholu Bhai','Tiger','Rocky'],business:['Mr. Mehta','Mr. Kapoor'],lawyer:['Advocate Joshi','Advocate Rao'],doctor:['Dr. Iyer','Dr. Shah']};
+    const p={x,z,y:0,vy:0,a:rnd(6.28),hp:45,type,h,dead:false,t:0,panic:0,fx:0,fz:0,wt:rnd(1,4),cool:rnd(1,2),spd:0,phase:rnd(6),seed:rnd(10),act:null,actT:0,actDur:0,side:1,combo:0,aim:0,weapon:0,air:false,down:0,fight:false,hitDone:true,dance:false,arch:k,slow:A.slow||1,name:pick(NAMES[k]||['Citizen'])};h.root.position.set(x,0,z);return p}
   const fem=!cop&&!gang&&Math.random()<0.4;const hs=cop||gang?'cap':fem?pick(['pony','short']):pick(['short','short','buzz','cap','spiky']);
   const h=makeHuman({lite:true,female:fem,shirt:cop?'#24418a':gang?'#6a1b9a':pick(SHIRTS),sleeves:cop?'long':Math.random()<0.3?'long':'short',shorts:!cop&&!gang&&Math.random()<0.3,pants:cop?'#1a2240':gang?'#1b1b22':pick(PANTS),skin:pick(SKINS),hair:fem&&Math.random()<0.4?pick(['#ff5fa2','#b5651d','#d9c7a3']):pick(HAIRS),hairStyle:hs,cap:cop?'#14214a':gang?'#d61e52':pick(['#e94f37','#1d3557','#2b2a33']),beard:!fem&&!cop&&Math.random()<0.15,shoes:pick(['#1d1a20','#f2f2f2','#6b4423'])});
   const p={x,z,y:0,vy:0,a:rnd(6.28),hp:cop?80:gang?110:45,type,h,dead:false,t:0,panic:0,fx:0,fz:0,wt:rnd(1,4),cool:rnd(1,2),spd:0,phase:rnd(6),seed:rnd(10),act:null,actT:0,actDur:0,side:1,combo:0,aim:0,weapon:cop?1:0,air:false,down:0,fight:gang,hitDone:true,dance:false};
@@ -1417,12 +1508,12 @@ function bestAutoTarget(ox,oz,def){let best=null,bs=1e9;
   for(const c of cars){if(c.dead||c===player.car)continue;const dd=Math.sqrt(d2(c.x,c.z,ox,oz));if(dd>45||dd<0.5)continue;const a=Math.atan2(c.x-ox,c.z-oz),ad=Math.abs(angDiff(def,a));if(ad>0.9||!los(ox,oz,c.x,c.z))continue;const h=(c.driver==='cop'||c.driver==='army')&&stars()>0;const sc=dd+ad*25-(h?25:0)+12;if(sc<bs){bs=sc;best=c}}
   return best}
 // ---------- v3 seated driver ----------
-const SEATS={heli:[0.42,1.18,1.25,0],plane:[0,1.72,1.4,0],boat:[0.45,1.32,-0.6,0],truck:[-0.55,1.25,2.9,0],low:[-0.42,0.33,-0.18,1],car:[-0.42,0.43,-0.12,0]};
+const SEATS={heli:[0.42,1.18,1.25,0],plane:[0,1.72,1.4,0],boat:[0.45,1.32,-0.6,0],truck:[-0.55,1.25,2.9,0],low:[-0.42,0.24,-0.2,1],car:[-0.42,0.36,-0.12,0]};
 const _sv=new THREE.Vector3();
 function seatFor(c){if(c.kind==='tank')return null;if(SEATS[c.kind])return SEATS[c.kind];return(c.kind==='sports'||c.kind==='super'||c.kind==='hyper')?SEATS.low:SEATS.car}
 function placeSeated(h,c){
   const s=seatFor(c);if(!s||camS.carView===2){h.root.visible=false;return}
-  h.root.visible=true;c.mesh.updateMatrixWorld();_sv.set(s[0],s[1]-1.02,s[2]);c.mesh.localToWorld(_sv);
+  h.root.visible=true;h.root.scale.setScalar(0.86);c.mesh.updateMatrixWorld();_sv.set(s[0],s[1]-1.02*0.86,s[2]);c.mesh.localToWorld(_sv);
   h.root.position.copy(_sv);h.root.rotation.set(0,c.a,0,'YXZ');
 }
 // ---------- v3 big map (drag + zoom) ----------
@@ -1431,7 +1522,7 @@ function mapScale(){const S=Math.min(VW,VH)-40;return S/MAPW*mapView.z}
 
 // ---------- camera ----------
 const camS={carView:0,yaw:Math.PI*0.75,pitch:0.28,dist:5.4,distIdx:1,lastLook:-9,x:0,y:0,z:0,init:false};
-const DISTS=[3.6,5.4,8.5];
+const DISTS=[3.6,5.4,8.5,22];
 function camForward(){return{x:-Math.sin(camS.yaw),z:-Math.cos(camS.yaw)}}
 function camAimAngle(){const f=camForward();return Math.atan2(f.x,f.z)}
 function aimTargets(){const s=stars(),list=[];
@@ -1445,7 +1536,7 @@ function autoAim(ox,oz,def){let best=null,bs=1e9;
   return best===null?def:best}
 let pointerLocked=false;
 function aimAngle(ox,oz,def){if(!isTouch)return computeAim(ox,oz);const t=bestAutoTarget(ox,oz,def);aimInfo={a:def,t};return t?Math.atan2(t.x-ox,t.z-oz):def}
-function cycleCam(){if(player.car){camS.carView=(camS.carView+1)%3;toast(['Chase camera','Close camera','Driver view'][camS.carView],1)}else camS.distIdx=(camS.distIdx+1)%DISTS.length}
+function cycleCam(){if(player.car){camS.carView=(camS.carView+1)%3;toast(['Chase camera','Close camera','Driver view'][camS.carView],1)}else{camS.distIdx=(camS.distIdx+1)%(player.drone?4:3);if(camS.distIdx===3)toast('Drone camera',1)}}
 function updateCamera(dt){
   let tx,ty,tz;
   if(state==='sport'){sportCam(dt);return}
@@ -1483,7 +1574,7 @@ function startKick(){if(player.act==='kick'||player.air||player.car)return;playe
 function meleeResolve(kind){
   const range=kind==='kick'?1.9:1.45,fx=Math.sin(player.a),fz=Math.cos(player.a);
   let dmg=kind==='kick'?30:(player.combo===2?24:13);const kd=kind==='kick'?2.4:(player.combo===2?2:0),kb=kind==='kick'?1.6:(player.combo===2?1.0:0.35);
-  if(cheats.giant)dmg*=3;
+  if(cheats.giant)dmg*=3;dmg*=1+0.2*(player.str||0);
   let best=null,bd=9;
   for(const p of peds){if(p.dead)continue;const dx=p.x-player.x,dz=p.z-player.z,d=Math.hypot(dx,dz);if(d>range*(cheats.giant?2:1)||d<0.01)continue;if((dx*fx+dz*fz)/d<0.35)continue;if(d<bd){bd=d;best=p}}
   if(best){const dx=best.x-player.x,dz=best.z-player.z,d=Math.hypot(dx,dz)||1;damagePed(best,dmg,PLAYER,dx/d*kb,dz/d*kb,kd);sfx('punch');addShake(0.12);for(let i=0;i<5;i++)emit(firePool,best.x-dx/d*0.3,1.3,best.z-dz/d*0.3,rnd(-2,2),rnd(0,2),rnd(-2,2),0.18,0.4,'#ffffff');
@@ -1509,7 +1600,7 @@ function enterCar(){
   if(!best)return;
   if(best.driver==='ai'||best.driver==='cop'||best.driver==='army'){const wasCop=best.driver==='cop'||best.driver==='army'||best.kind==='police';ejectDriver(best);if(wasCop){if(heat<1)heat=1;addHeat(0.6)}}
   else if(best.kind==='police')addHeat(heat<1?1:0.3);
-  best.driver='player';best.ai=null;best.persist=true;player.car=best;player.h.root.visible=false;player.act=null;player.aim=0;sfx('door');engineOn();
+  best.driver='player';best.ai=null;best.persist=true;player.car=best;storyEvent('car',best.kind);player.h.root.visible=false;player.act=null;player.aim=0;sfx('door');engineOn();
   camS.lastLook=-9;
   if(best.kind==='heli')toast(isTouch?'HELICOPTER: stick to fly, UP / DOWN buttons for height.':'HELICOPTER: W/S forward/back, A/D turn, SPACE up, SHIFT down.',5);
   else if(best.kind==='plane')toast(isTouch?'PLANE: push stick up for throttle, UP to pull up once fast.':'PLANE: hold W for throttle, SPACE to pull up past 100 km/h, SHIFT to dive, A/D to bank.',6);
@@ -1546,7 +1637,7 @@ function updatePlayer(dt){
   else if(kx||ky){const f=camForward(),rx=Math.cos(camS.yaw),rz=-Math.sin(camS.yaw);mx=f.x*(-ky)+rx*kx;mz=f.z*(-ky)+rz*kx;const l=Math.hypot(mx,mz)||1;mx/=l;mz/=l;mag=1;sprint=!!(K.ShiftLeft||K.ShiftRight)}
   let speed=mag*(sprint?7.4:(useStick?4.6*Math.min(1,mag/0.85):4.6));if(cheats.giant)speed*=1.6;if(cheats.fast)speed*=2;else if(player.boostT>0)speed*=1.45;
   if(player.act==='punch'||player.act==='kick')speed*=0.25;
-  player.x+=mx*speed*dt;player.z+=mz*speed*dt;hitBuildings(player,0.35*(cheats.giant?2:1));
+  player.x+=mx*speed*dt;player.z+=mz*speed*dt;if(!inside)hitBuildings(player,0.35*(cheats.giant?2:1));
   player.spd=speed;
   if(mag>0.05&&!(player.aim>0&&player.w>0)&&player.act!=='punch'&&player.act!=='kick'){const des=Math.atan2(mx,mz);player.a+=angDiff(player.a,des)*Math.min(1,dt*12)}
   if(player.aim>0&&player.w>0&&!isTouch)player.a+=angDiff(player.a,computeAim(player.x,player.z))*Math.min(1,dt*20);
@@ -1644,7 +1735,7 @@ function updateCars(dt){
     const sa=Math.sin(c.a),ca=Math.cos(c.a);let hitN=null;
     for(const off of[c.k.len*0.3,-c.k.len*0.3]){const p={x:c.x+sa*off,z:c.z+ca*off};const ox=p.x,oz=p.z;const h=hitBuildings(p,c.k.wid*0.55);if(h){c.x+=p.x-ox;c.z+=p.z-oz;hitN=h}}
     if(hitN){const imp=-(c.vx*hitN.nx+c.vz*hitN.nz);if(imp>0){c.vx+=hitN.nx*imp*1.35;c.vz+=hitN.nz*imp*1.35;
-      if(imp>9){damageCar(c,(imp-8)*1.4,null);if(imp>13){sfx('crash',c.x,c.z);if(c===player.car)addShake(imp/40);for(let i=0;i<6;i++)emit(firePool,c.x+sa*c.k.len*0.45,0.8,c.z+ca*c.k.len*0.45,rnd(-5,5),rnd(1,4),rnd(-5,5),0.25,0.3,'#ffe28a')}}}}
+      if(imp>9){damageCar(c,(imp-8)*1.4,null);if(imp>13){sfx('crash',c.x,c.z);crashFX(c,imp,c.x+sa*c.k.len*0.45,c.z+ca*c.k.len*0.45);if(c===player.car)addShake(imp/40);for(let i=0;i<6;i++)emit(firePool,c.x+sa*c.k.len*0.45,0.8,c.z+ca*c.k.len*0.45,rnd(-5,5),rnd(1,4),rnd(-5,5),0.25,0.3,'#ffe28a')}}}}
     if(!c.dead&&c.hp<c.k.hp*0.35&&c.burn<=0){c.smokeT-=dt;if(c.smokeT<=0){c.smokeT=0.1;emit(smokePool,c.x+sa*c.k.len*0.38,1.1,c.z+ca*c.k.len*0.38,rnd(-0.4,0.4),rnd(1,2),rnd(-0.4,0.4),1.3,0.9,c.hp<c.k.hp*0.15?'#2a2630':'#9a96a3',1.4)}}
     const sp=Math.abs(c.speed);
     if(sp>3&&!c.dead){
@@ -1673,7 +1764,7 @@ function carCollide(a,b){
     if(rv<0){const jj=-1.3*rv/(1/ma+1/mb);a.vx-=jj*dx/ma;a.vz-=jj*dz/ma;b.vx+=jj*dx/mb;b.vz+=jj*dz/mb;
       const s=-rv;if(s>7){const dmg=(s-5)*1.3;const pa=a===player.car,pb=b===player.car;
         damageCar(a,dmg*Math.min(3,mb/ma)*(b.kind==='tank'?4:1),pb?PLAYER:null);damageCar(b,dmg*Math.min(3,ma/mb)*(a.kind==='tank'?4:1),pa?PLAYER:null);
-        if(s>11){sfx('crash',a.x,a.z);if(pa||pb)addShake(s/45);for(let k=0;k<5;k++)emit(firePool,(ax+bx)/2,0.9,(az+bz)/2,rnd(-6,6),rnd(1,4),rnd(-6,6),0.25,0.3,'#ffe28a')}
+        if(s>11){sfx('crash',a.x,a.z);if(pa)crashFX(a,s,(ax+bx)/2,(az+bz)/2);if(pb)crashFX(b,s,(ax+bx)/2,(az+bz)/2);if(pa||pb)addShake(s/45);for(let k=0;k<5;k++)emit(firePool,(ax+bx)/2,0.9,(az+bz)/2,rnd(-6,6),rnd(1,4),rnd(-6,6),0.25,0.3,'#ffe28a')}
         if((pa&&b.driver==='cop')||(pb&&a.driver==='cop')){if(heat<1)heat=1;addHeat(0.15)}
         if(pa&&b.driver==='ai')b.panic=5;if(pb&&a.driver==='ai')a.panic=5}}
   }
@@ -1797,7 +1888,7 @@ function updatePeds(dt){
         if(dist>1.15&&!p.act){sp=dist>4?5.2:2.2;p.x+=Math.sin(p.a)*sp*dt;p.z+=Math.cos(p.a)*sp*dt;hitBuildings(p,0.35)}
         if(dist<1.6&&p.cool<=0&&!p.act&&player.down<=0){p.combo=(p.combo+1)%3;p.side=p.combo%2?-1:1;p.act='punch';p.actT=0;p.actDur=p.combo===2?0.45:0.32;p.hitDone=false;p.cool=rnd(0.6,1.3)*(p.type==='gang'?0.8:1)}}
     }else{
-      sp=p.panic>0?5.6:1.35;
+      sp=(p.panic>0?5.6:1.35)*(p.panic>0?1:(p.slow||1));
       if(p.panic>0){p.panic-=dt;const fa=Math.atan2(p.x-p.fx,p.z-p.fz);p.a+=angDiff(p.a,fa+Math.sin(gtime*3+p.seed)*0.5)*Math.min(1,dt*6)}
       else{p.wt-=dt;if(p.wt<=0){p.wt=rnd(3,8);p.a+=pick([0,0,Math.PI/2,-Math.PI/2,Math.PI]);p.a=Math.round(p.a/(Math.PI/2))*(Math.PI/2)}}
       const nx=p.x+Math.sin(p.a)*sp*dt,nz=p.z+Math.cos(p.a)*sp*dt;
@@ -1919,11 +2010,11 @@ function updateMission(dt){
   const sp=SPRAY.pad;
   if(player.car&&t.x>sp.x&&t.x<sp.x+sp.w&&t.z>sp.z&&t.z<sp.z+sp.d){
     if(!sprayLock&&(stars()>0||player.car.hp<player.car.k.hp)){sprayLock=true;const cost=stars()>0?500:100;
-      if(player.money>=cost){player.money-=cost;heat=0;evade=0;const c=player.car;c.hp=c.k.hp;c.burn=0;if(!c.golden&&c.kind!=='police'&&c.kind!=='tank'){c.col=pick(CARCOLS);for(const b of c.bodies)b.material=M(c.col)}
+      if(player.money>=cost){player.money-=cost;heat=0;evade=0;const c=player.car;c.hp=c.k.hp;c.burn=0;if(!c.golden&&c.kind!=='police'&&c.kind!=='tank'){c.col=pick(CARCOLS);for(const b of c.bodies)b.material=paint(c.col)}
         big('RESPRAYED','-$'+cost+' · New look, no heat','#3df5c4');sfx('pass')}else toast(`Pay N Spray costs $${cost}. Go earn some cash!`)}}
   else sprayLock=false;
 }
-function objective(){if(!mission)return null;if(mission.id==='race')return mission.cps[mission.i];if(mission.id==='fight'){let b=null,bd=1e9;for(const p of peds)if(p.mission&&!p.dead){const d=d2(p.x,p.z,player.x,player.z);if(d<bd){bd=d;b=p}}return b}return null}
+function objective(){if(!mission)return storyTarget();if(mission.id==='race')return mission.cps[mission.i];if(mission.id==='fight'){let b=null,bd=1e9;for(const p of peds)if(p.mission&&!p.dead){const d=d2(p.x,p.z,player.x,player.z);if(d<bd){bd=d;b=p}}return b}return null}
 
 // ---------- v3 TGC Sports City ----------
 const CR={x:-140,z:110,R:60},FB={x:-140,z:362,L:50,W:32},BD={x:-60,z:470};
@@ -2037,7 +2128,7 @@ function endSport(result,reward){
   if(s.cleanup)s.cleanup();sport=null;crowdOff();
   state='play';$('#hud').classList.remove('sporting');$('#sportHud').hidden=true;player.h.root.visible=true;for(const p of peds)p.h.root.visible=true;
   const v=VENUES.find(v=>v.id===s.id);const cz=v.id==='cricket'?CR.z:v.id==='football'?FB.z:BD.z;const dz=Math.sign(v.z-cz)||1;player.x=v.x;player.z=v.z+dz*4;player.car=null;camS.init=false;giverLock='venue:'+v.id;
-  if(result==='win'){player.money+=reward;big('YOU WIN!','+'+fmtMoney(reward),'#ffd23f');sfx('pass');stats.sportsWins=(stats.sportsWins||0)+1;save()}
+  if(result==='win'){storyEvent('sportwin',s.id,s.diff);player.money+=reward;big('YOU WIN!','+'+fmtMoney(reward),'#ffd23f');sfx('pass');stats.sportsWins=(stats.sportsWins||0)+1;save()}
   else if(result==='draw'){player.money+=Math.floor(reward/4);big('DRAW','+'+fmtMoney(Math.floor(reward/4)),'#3df5c4')}
   else if(result==='lose'){big('YOU LOST','Train harder and try again','#ff3d7f');sfx('fail')}
 }
@@ -2130,7 +2221,7 @@ function newCricket(mode,diff){
     if(q==='edge'){ang=Math.PI+rnd(-0.5,0.5);el=rnd(0.4,0.9);pw=rnd(10,18)}
     const dx=-Math.sin(ang)*-1,dz=-Math.cos(ang);const h=Math.cos(el)*pw;b.vx=Math.sin(ang)*h;b.vz=-Math.cos(ang)*h;b.vy=Math.sin(el)*pw;b.x=gx;b.z=batZ;b.y=Math.max(0.4,b.y);
     S.hit=true;S.bounced=false;S.shotT=0;S.tried=false;sfx('punch');swing(bat,'over');if(q==='perfect')floatText(gx,2.5,batZ,'PERFECT!','#ffd23f');return true}
-  function ballDone(runs,out,msg){S.phase='after';S.t=2.2;S.balls++;if(out){S.wk++;big(out,'','#ff3d7f');cheer(!human)}else{S.runs+=runs;if(runs>=4){big(runs===6?'SIX!':'FOUR!','','#ffd23f');cheer(human)}else if(msg)toast(msg,1.5)}}
+  function ballDone(runs,out,msg){S.phase='after';S.t=2.2;S.balls++;if(out){S.wk++;big(out,'','#ff3d7f');cheer(!human)}else{S.runs+=runs;if(runs>=4){big(runs===6?'SIX!':'FOUR!','','#ffd23f');cheer(human);if(runs===6&&human)storyEvent('six')}else if(msg)toast(msg,1.5)}}
   S.update=function(dt){
     const inp=moveInput(),pr=readPress();const b=S.b;
     if(S.phase==='ready'){S.t-=dt;b.x=bowler.x;b.y=1;b.z=bowler.z;
@@ -2227,7 +2318,7 @@ function newFootball(diff){
       if(S.owner){const o=S.owner;b.x=o.x+Math.sin(o.a)*0.75;b.z=o.z+Math.cos(o.a)*0.75;b.y=0.11;b.vx=b.vz=b.vy=0}
       else{b.vy-=9.8*dt;b.x+=b.vx*dt;b.y+=b.vy*dt;b.z+=b.vz*dt;if(b.y<=0.11){b.y=0.11;if(b.vy<-1.5)b.vy*=-0.5;else b.vy=0;const f=Math.max(0,1-0.7*dt);b.vx*=f;b.vz*=f}
         if(Math.abs(b.x-fx)>HW){b.x=fx+Math.sign(b.x-fx)*HW;b.vx*=-0.6}
-        if(Math.abs(b.z-fz)>HL){const inMouth=Math.abs(b.x-fx)<GW&&b.y<2.44;if(inMouth&&S.phase==='play'){const scorer=b.z>fz?0:1;if(scorer===0)S.sA++;else S.sB++;S.phase='goal';S.t=2.6;S.kick=1-scorer;big('GOAL!',`TGC FC ${S.sA} – ${S.sB} COASTAL UTD`,scorer===0?'#ffd23f':'#2e86ab');cheer(true);for(let i=0;i<20;i++)emit(firePool,b.x,2,b.z,rnd(-6,6),rnd(3,9),rnd(-6,6),1,0.6,pick(['#ff3d7f','#3df5c4','#ffd23f']))}
+        if(Math.abs(b.z-fz)>HL){const inMouth=Math.abs(b.x-fx)<GW&&b.y<2.44;if(inMouth&&S.phase==='play'){const scorer=b.z>fz?0:1;if(scorer===0){S.sA++;storyEvent('goal')}else S.sB++;S.phase='goal';S.t=2.6;S.kick=1-scorer;big('GOAL!',`TGC FC ${S.sA} – ${S.sB} COASTAL UTD`,scorer===0?'#ffd23f':'#2e86ab');cheer(true);for(let i=0;i<20;i++)emit(firePool,b.x,2,b.z,rnd(-6,6),rnd(3,9),rnd(-6,6),1,0.6,pick(['#ff3d7f','#3df5c4','#ffd23f']))}
           else{b.z=fz+Math.sign(b.z-fz)*HL;b.vz*=-0.5}}
         if(S.phase==='play'||S.phase==='kickoff'){let best=null,bd=0.95;for(const p of players){if(p.cool>0)continue;const d=Math.hypot(p.x-b.x,p.z-b.z);if(d<bd&&b.y<1.2&&Math.hypot(b.vx,b.vz)<16){bd=d;best=p}}if(best){S.owner=best;S.lastTouch=best;if(best.team===0&&!best.gk){S.ctrl=best;S.pendingCtrl=null}}}}
       for(const p of players){p.x=clamp(p.x,fx-HW-2,fx+HW+2);p.z=clamp(p.z,fz-HL-2,fz+HL+2)}
@@ -2248,10 +2339,184 @@ const SHOP_MARK={x:SHOWROOM.x,z:SHOWROOM.z,name:'TGC MOTORS'};
 function shopCheck(){if(state!=='play'||player.car)return;const inside=d2(SHOP_MARK.x,SHOP_MARK.z,player.x,player.z)<2.4*2.4;if(inside&&giverLock!=='shop'){giverLock='shop';openShop(true)}else if(!inside&&giverLock==='shop')giverLock=null}
 function openShop(atShop){state='shop';player.garage=player.garage||[];const rows=SHOP_CARS.map((c,i)=>{const own=player.garage.includes(c.kind);return`<div class="shopRow"><div><b>${c.name}</b><small>${c.kind==='heli'?'Helicopter':c.kind==='tank'?'Armoured tank':'Top speed '+Math.round(KINDS[c.kind].max*3.6)+' km/h'}</small></div>${own?`<button class="btn mint" data-call="${i}">CALL IT</button>`:atShop?`<button class="btn${player.money>=c.price?' primary':''}" data-buy="${i}" ${player.money>=c.price?'':'disabled'}>BUY ${fmtMoney(c.price)}</button>`:'<span class="small">Buy at TGC Motors</span>'}</div>`}).join('');
   $('#shopBody').innerHTML=`<p class="small">${atShop?'Cars you buy are yours forever. Call them from the pause menu under MY GARAGE.':'Your cars. Press CALL IT to have one delivered next to you.'} Cash: <b>${fmtMoney(player.money)}</b></p>`+rows;
-  $('#shopBody').querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>{const c=SHOP_CARS[+b.dataset.buy];if(player.money<c.price)return;player.money-=c.price;player.garage.push(c.kind);save();sfx('cash');const v=spawnNear(c.kind);if(c.col&&!v.k.air&&v.kind!=='tank'){v.col=c.col;for(const m of v.bodies)m.material=M(c.col)}closeOverlay();big('SOLD!',c.name+' is yours','#ffd23f')});
-  $('#shopBody').querySelectorAll('[data-call]').forEach(b=>b.onclick=()=>{const c=SHOP_CARS[+b.dataset.call];const v=spawnNear(c.kind);if(c.col&&!v.k.air&&v.kind!=='tank'){v.col=c.col;for(const m of v.bodies)m.material=M(c.col)}closeOverlay();toast(c.name+' delivered',2)});
+  $('#shopBody').querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>{const c=SHOP_CARS[+b.dataset.buy];if(player.money<c.price)return;player.money-=c.price;player.garage.push(c.kind);save();sfx('cash');const v=spawnNear(c.kind);if(c.col&&!v.k.air&&v.kind!=='tank'){v.col=c.col;for(const m of v.bodies)m.material=paint(c.col)}storyEvent('buycar');closeOverlay();big('SOLD!',c.name+' is yours','#ffd23f')});
+  $('#shopBody').querySelectorAll('[data-call]').forEach(b=>b.onclick=()=>{const c=SHOP_CARS[+b.dataset.call];const v=spawnNear(c.kind);if(c.col&&!v.k.air&&v.kind!=='tank'){v.col=c.col;for(const m of v.bodies)m.material=paint(c.col)}closeOverlay();toast(c.name+' delivered',2)});
   show('shopMenu');if(pointerLocked&&document.exitPointerLock)document.exitPointerLock()}
 function closeOverlay(){show(null);state='play';mouse.down=mouse.rdown=false}
+// ---------- v4: shops you can enter ----------
+const SHOPTYPE={PIZZA:'food',BURGERS:'food',TACOS:'food',DINER:'food','DOSA HOUSE':'food','CHAI CORNER':'food','ICE CREAM':'food',ELECTRONICS:'electronics','GAMING ZONE':'electronics',ARCADE:'electronics',FITNESS:'gym',PHARMACY:'clinic',SNEAKERS:'clothes','SURF SHOP':'clothes',RECORDS:'clothes',BARBER:'barber',BANK:'office','TGC STORE':'kirana','KIRANA STORE':'kirana',STATIONERY:'stationery','BOOK DEPOT':'stationery','TGC OFFICES':'office','LAW CHAMBERS':'office',CLINIC:'clinic'};
+const INT={food:{title:'Food Corner',wall:'#f6d7a7',floor:'#8a5a3a',keeper:{arch:'young',o:{shirt:'#ffffff',coat:true,coatCol:'#ffffff',pants:'#1d1c22',hairStyle:'cap',cap:'#ffffff'}},greet:'Welcome! Fresh and hot, what will you have?',
+    items:[['Masala Chai',20,'heal',15],['Hot Samosa',40,'heal',30],['Cheese Pizza',120,'heal',60],['Mega Thali',200,'healboost',100]]},
+  kirana:{title:'Kirana Store',wall:'#e9e0c8',floor:'#9a8f78',keeper:{arch:'oldMan',o:{shirt:'#e8e2d8',pants:'#5c6f84',sleeves:'long',hair:'#d8d8d8',hairStyle:'buzz',beard:true}},greet:'Aao beta! Biscuits, cold drinks, snacks, everything is here.',
+    items:[['Biscuit Pack',10,'heal',10],['Cold Drink',30,'heal',20],['Namkeen Mix',50,'heal',35],['Monthly Ration',300,'heal',100]]},
+  stationery:{title:'Stationery Shop',wall:'#d9e8f5',floor:'#7d8ea3',keeper:{arch:'youngF',o:{female:true,shirt:'#9b5de5',pants:'#22223b',hairStyle:'pony',hair:'#1b1b1b'}},greet:'Notebooks, pens, maps of the city. What do you need?',
+    items:[['Notebook',15,'none'],['City Treasure Map',400,'map'],['Geometry Box',60,'none']]},
+  electronics:{title:'Electronics Store',wall:'#22232b',floor:'#3a3a44',keeper:{arch:'young',o:{shirt:'#2e86ab',pants:'#1d1c22',hairStyle:'spiky',hair:'#1b1b1b'}},greet:'Latest gadgets in town, bhai. Have a look.',
+    items:[['Earphones',150,'none'],['Drone Camera',1500,'drone'],['Smart Watch (shows tokens)',900,'map']]},
+  gym:{title:'TGC Fitness',wall:'#2b2a33',floor:'#1d1c22',keeper:{arch:'gym',o:{shirt:'#e94f37',pants:'#2b2a33',sleeves:'none',muscle:true,hairStyle:'buzz'}},greet:'Ready to get strong? One session makes your punches hit harder.',
+    items:[['Training Session',150,'strength'],['Protein Shake',80,'healboost',40]]},
+  clinic:{title:'City Clinic',wall:'#eef6f8',floor:'#c9d4dc',keeper:{arch:'doctor',o:{shirt:'#ffffff',coat:true,coatCol:'#f4f4f8',inner:'#9fd0e8',pants:'#4f5d75',hairStyle:'short'}},greet:'Hello, I am the doctor. Let me patch you up.',
+    items:[['Full Check-up',100,'heal',100],['Health + Armor',450,'armor']]},
+  clothes:{title:'Fashion Store',wall:'#f3c6d6',floor:'#5a3e4a',keeper:{arch:'youngF',o:{female:true,shirt:'#f15bb5',pants:'#14081c',hairStyle:'short',hair:'#7c5cff'}},greet:'New season, new look! Try a fresh outfit.',
+    items:[['New Shirt Colour',150,'outfit'],['New Jeans',120,'pants']]},
+  barber:{title:'Barber Shop',wall:'#d9c2a0',floor:'#5a4a3a',keeper:{arch:'oldMan',o:{shirt:'#ffffff',pants:'#3c2f2f',hairStyle:'short',hair:'#2a2a2a',beard:true}},greet:'Sit down, sit down. Haircut or new colour?',
+    items:[['New Hair Colour',80,'hair'],['Shave and Style',40,'none']]},
+  office:{title:'TGC Office Tower',wall:'#c9d4f2',floor:'#8f939c',keeper:{arch:'business',o:{shirt:'#1d1c22',coat:true,inner:'#ffffff',tie:'#d62839',pants:'#1d1c22',hairStyle:'short'}},greet:'Good to see you. I have urgent documents that need delivering. Interested?',
+    items:[['Take delivery job',0,'job']],guard:true},
+  mall:{title:'TGC Mall',wall:'#f2eee8',floor:'#d8d0c4',big:true,keeper:{arch:'youngF',o:{female:true,shirt:'#ff3d7f',pants:'#14081c',hairStyle:'pony',hair:'#3b2416'}},greet:'Welcome to TGC Mall! Mega sale today, fifty percent off everywhere.',
+    items:[['Food Court Meal (50% off)',60,'healboost',80],['Designer Outfit (50% off)',300,'outfit'],['VR Headset (50% off)',750,'drone'],['Movie Ticket',100,'none']]},
+};
+const DOORS=[];
+function addDoor(x,z,face,name){const type=SHOPTYPE[name];if(!type||DOORS.length>60)return;DOORS.push({x,z,face,name,type})}
+let inside=null;const interiorCache={};const INT_BASE={x:4200,z:4200};let intIdx=0;
+const doorRing=new THREE.Mesh(new THREE.RingGeometry(0.55,0.75,24),new THREE.MeshBasicMaterial({color:0x3df5c4,side:THREE.DoubleSide,transparent:true,opacity:0.85}));doorRing.rotation.x=-Math.PI/2;doorRing.visible=false;scene.add(doorRing);
+function nearDoor(){if(player.car)return null;let best=null,bd=2.2*2.2;for(const d of DOORS){const dd=d2(d.x,d.z,player.x,player.z);if(dd<bd){bd=dd;best=d}}return best}
+function buildInterior(type){
+  if(interiorCache[type])return interiorCache[type];
+  const T=INT[type],W=T.big?44:16,D=T.big?32:12,H=T.big?9:4.4;const ox=INT_BASE.x+(intIdx++)*80,oz=INT_BASE.z;
+  const g=new THREE.Group();g.position.set(ox,0,oz);scene.add(g);
+  const tile=canvasTex(128,128,(c)=>{c.fillStyle=T.floor;c.fillRect(0,0,128,128);c.strokeStyle='rgba(0,0,0,.25)';c.lineWidth=2;for(let i=0;i<=128;i+=32){c.beginPath();c.moveTo(i,0);c.lineTo(i,128);c.moveTo(0,i);c.lineTo(128,i);c.stroke()}},true);tile.repeat.set(W/2,D/2);
+  const fl=new THREE.Mesh(new THREE.PlaneGeometry(W,D),new THREE.MeshLambertMaterial({map:tile}));fl.rotation.x=-Math.PI/2;fl.receiveShadow=SHADOWS;g.add(fl);
+  const wm=new THREE.MeshLambertMaterial({color:T.wall,side:THREE.BackSide});const room=new THREE.Mesh(new THREE.BoxGeometry(W,H,D),wm);room.position.y=H/2;g.add(room);
+  for(let i=0;i<(T.big?8:2);i++){const lp=new THREE.Mesh(new THREE.PlaneGeometry(3,0.6),new THREE.MeshBasicMaterial({color:0xfffbe6}));lp.rotation.x=Math.PI/2;lp.position.set(-W/2+W*(i+0.5)/(T.big?8:2),H-0.02,0);g.add(lp)}
+    const shelfCols=['#e94f37','#f6ae2d','#44bba4','#3f88c5','#9b5de5','#ff924c','#fee440','#ffffff'];
+  const prod=new THREE.BoxGeometry(0.28,0.36,0.22);const shelf=new THREE.BoxGeometry(W*0.8,0.06,0.5);
+  for(const side of[-1,1])for(let lv=0;lv<4;lv++){const s=new THREE.Mesh(shelf,M('#6b4423'));s.position.set(0,0.35+lv*0.62,side*(D/2-0.35));g.add(s);
+    const n=Math.floor(W*0.8/0.34);const im=new THREE.InstancedMesh(prod,new THREE.MeshLambertMaterial({color:0xffffff}),n);const dd=new THREE.Object3D(),col=new THREE.Color();
+    for(let i=0;i<n;i++){dd.position.set(-W*0.4+0.17+i*0.34,0.56+lv*0.62,side*(D/2-0.35));dd.scale.set(1,0.7+Math.random()*0.6,1);dd.updateMatrix();im.setMatrixAt(i,dd.matrix);im.setColorAt(i,col.set(pick(shelfCols)))}if(im.instanceColor)im.instanceColor.needsUpdate=true;g.add(im)}
+  const counter=new THREE.Mesh(new THREE.BoxGeometry(3.4,1.05,0.9),M('#3a2a20'));counter.position.set(0,0.52,-D/2+2.4);counter.castShadow=SHADOWS;g.add(counter);
+  const topc=new THREE.Mesh(new THREE.BoxGeometry(3.5,0.06,1),M('#e8e2d8'));topc.position.set(0,1.07,-D/2+2.4);g.add(topc);
+  const sg=new THREE.Mesh(new THREE.PlaneGeometry(Math.min(W*0.6,10),1.3),new THREE.MeshBasicMaterial({map:signTex(T.title.toUpperCase(),'#14081c','#ffd23f',512,96)}));sg.position.set(0,H-1.2,-D/2+0.02);g.add(sg);
+  if(T.big){for(const[x,txt]of[[-14,'FOOD COURT'],[0,'FASHION'],[14,'ELECTRONICS']]){const st=new THREE.Mesh(new THREE.BoxGeometry(8,3,4),M(pick(['#ff3d7f','#3df5c4','#ffd23f'])));st.position.set(x,1.5,4);g.add(st);const ss=new THREE.Mesh(new THREE.PlaneGeometry(7,1),new THREE.MeshBasicMaterial({map:signTex(txt,'#ffffff','#14081c',512,80)}));ss.position.set(x,3.6,6.03);g.add(ss)}
+    for(const x of[-18,18]){const b=new THREE.Mesh(new THREE.PlaneGeometry(9,2.4),new THREE.MeshBasicMaterial({map:signTex('MEGA SALE 50% OFF','#ff3d7f','#ffffff',512,128)}));b.position.set(x,6.2,-D/2+0.03);g.add(b)}
+    const esc=new THREE.Mesh(new THREE.BoxGeometry(2.2,0.4,10),M('#9aa0aa'));esc.position.set(-19,2.5,-6);esc.rotation.x=-0.45;g.add(esc)}
+  const kd=T.keeper;const kh=makeHumanX(Object.assign({skin:pick(SKINS)},ARCH[kd.arch].o(),kd.o));const keeper={h:kh,x:ox,z:oz-D/2+1.5,a:0,spd:0,phase:0,seed:3,weapon:0,arch:kd.arch};kh.root.position.set(keeper.x,0,keeper.z);
+  const extra=[];if(T.guard){const gh=makeHumanX({skin:pick(SKINS),shirt:'#1d1c22',pants:'#1d1c22',sleeves:'long',hairStyle:'cap',cap:'#1d1c22',shades:true,muscle:true});extra.push({h:gh,x:ox+3,z:oz+D/2-1.5,a:Math.PI,spd:0,phase:0,seed:5,weapon:0,line:'Security check done. You may go in. Best of luck with the boss.'})}
+  for(let i=0;i<(T.big?8:2);i++){const k=pickArch();const sh=makeHumanX(Object.assign({skin:pick(SKINS),hair:pick(HAIRS)},ARCH[k].o(),{lite:isTouch}));extra.push({h:sh,x:ox+rnd(-W/2+2,W/2-2),z:oz+rnd(-D/2+4,D/2-3),a:rnd(6.28),spd:0,phase:0,seed:rnd(9),weapon:0,arch:k,browse:true})}
+  const R={type,T,g,ox,oz,W,D,H,keeper,extra,door:{x:ox,z:oz+D/2-1}};interiorCache[type]=R;return R}
+function enterShop(d){const R=buildInterior(d.type);inside={R,door:d};player.x=R.door.x;player.z=R.door.z-1.2;player.a=Math.PI;camS.yaw=0;camS.init=false;player.h.root.visible=true;
+  const fd=$('#fade');fd.style.opacity=1;setTimeout(()=>fd.style.opacity=0,250);sfx('door');storyEvent('shop',d.type);toast(R.T.title+'. Walk to the counter to talk.',2.5)}
+function exitShop(){const d=inside.door;inside=null;player.x=d.x+Math.sin(d.face)*1.6;player.z=d.z+Math.cos(d.face)*1.6;player.a=d.face;camS.init=false;const fd=$('#fade');fd.style.opacity=1;setTimeout(()=>fd.style.opacity=0,250);sfx('door')}
+function interiorTick(dt){
+  const R=inside.R;player.x=clamp(player.x,R.ox-R.W/2+0.6,R.ox+R.W/2-0.6);player.z=clamp(player.z,R.oz-R.D/2+3.2,R.oz+R.D/2-0.6);
+  const k=R.keeper;k.a=Math.atan2(player.x-k.x,player.z-k.z);animHuman(k.h,k,dt);k.h.root.rotation.y=k.a;
+  for(const e of R.extra){if(e.browse){e.t=(e.t||0)-dt;if(e.t<=0){e.t=rnd(2,5);e.tx=R.ox+rnd(-R.W/2+2,R.W/2-2);e.tz=R.oz+rnd(-R.D/2+4,R.D/2-3)}const dx=e.tx-e.x,dz=e.tz-e.z,dd=Math.hypot(dx,dz);if(dd>0.3){e.x+=dx/dd*1.1*dt;e.z+=dz/dd*1.1*dt;e.spd=1.1;e.a=Math.atan2(dx,dz)}else e.spd=0}
+    animHuman(e.h,e,dt);e.h.root.position.set(e.x,0,e.z);e.h.root.rotation.y=e.a}
+  if(d2(player.x,player.z,R.door.x,R.door.z)<1.0&&player.lastIn>1){exitShop();return}
+  player.lastIn=(player.lastIn||0)+dt;
+  if(state==='play'&&d2(player.x,player.z,k.x,k.z+1.4)<1.6*1.6&&!player.talkLock){player.talkLock=true;shopDialog(R)}
+  if(d2(player.x,player.z,k.x,k.z+1.4)>3*3)player.talkLock=false;
+}
+function applyItem(it){const[name,price,eff,v]=it;if(player.money<price){toast('Not enough cash. Do some tasks or play matches to earn more.',2.5);sfx('fail');return false}
+  player.money-=price;sfx('cash');
+  if(eff==='heal'){player.hp=Math.min(100,player.hp+v)}else if(eff==='healboost'){player.hp=Math.min(100,player.hp+v);player.boostT=20}
+  else if(eff==='armor'){player.hp=100;player.armor=100}else if(eff==='map'){player.mapTokens=true;toast('All hidden TGC tokens now show on your map!',3)}
+  else if(eff==='drone'){player.drone=true;toast('Drone camera unlocked: press C / CAM on foot to use it.',3)}else if(eff==='speaker'){player.speaker=true;toast('TGC CLUB radio station unlocked in cars (press R).',3)}
+  else if(eff==='strength'){player.str=Math.min(5,(player.str||0)+1);toast('Strength level '+player.str+'/5. Your punches hit harder.',2.5);storyEvent('gym')}
+  else if(eff==='outfit'||eff==='pants'||eff==='hair'){const o=HEROES[heroIdx].o;if(eff==='outfit'){o.shirtMat=null;o.shirt=pick(SHIRTS)}else if(eff==='pants')o.pants=pick(PANTS);else o.hair=pick(['#e8eef7','#ff5fa2','#3df5c4','#ffd23f','#1b1b1b','#7c5cff','#e94f37']);setHero(heroIdx);toast('Looking fresh!',2)}
+  else if(eff==='job'){startJob()}
+  if(eff==='heal'||eff==='healboost')storyEvent('buy',inside&&inside.R.type);save();return true}
+function shopDialog(R){const T=R.T;const opts=T.items.map(it=>({t:it[1]?`${it[0]}  ${fmtMoney(it[1])}`:it[0],f:()=>{if(applyItem(it)&&it[2]!=='job')showDialog(T.title,pick(['Thank you! Come again.','Enjoy! Tell your friends.','Great choice!']),[],ARCH[R.keeper.arch].voice)}}));opts.push({t:'Just looking'});
+  showDialog(T.title,T.greet,opts,ARCH[R.keeper.arch].voice)}
+// delivery job
+let job=null;
+function startJob(){const offices=DOORS.filter(d=>d.type!=='office');const t=pick(offices);job={target:t,reward:2500};showDialog('Office Manager',`Take these documents to the ${t.name.toLowerCase()} shop. Follow the yellow arrow. Be quick, the client is waiting.`,[{t:'On it!'}],ARCH.business.voice)}
+// talk to people on the street
+function talkNearest(){let best=null,bd=2.6*2.6;for(const p of peds){if(p.dead||p.down>0||p.type==='cop'||p.fight)continue;const dd=d2(p.x,p.z,player.x,player.z);if(dd<bd){bd=dd;best=p}}
+  if(!best)return false;const A=ARCH[best.arch||'young'];best.panic=0;best.talkT=6;best.a=Math.atan2(player.x-best.x,player.z-best.z);showDialog(best.name||'Citizen',pick(A.lines),[{t:'Bye!'}],A.voice);storyEvent('talk',best.arch);return true}
+// ---------- v4: mall exterior, banners, festivals ----------
+const FEST=(()=>{const m=new Date().getMonth(),d=new Date().getDate();return{diwali:m===10||(m===9&&d>20),navratri:m===9||m===8,xmas:m===11,newyear:m===0||(m===11&&d>=26)}})();
+const MALLB=blk(5,3);
+function buildFestive(){
+  // mall signage
+  const q=MALLB.bld[0];if(q){const cx=q.x+q.w/2;sign('TGC MALL',24,4.2,'#14081c','#ff3d7f',cx,q.h-3,q.z+q.d+0.2,0);sign('MEGA SALE 50% OFF',18,3,'#ff3d7f','#ffffff',cx,8.5,q.z+q.d+0.25,0);SHOPTYPE['TGC MALL']='mall';addDoor(cx,q.z+q.d+1.3,0,'TGC MALL')}
+  // offer banners around the city
+  const offers=['TGC MALL MEGA SALE 50% OFF','BUY 1 GET 1 FREE DOSA','TGC FITNESS FIRST MONTH FREE','GARBA NIGHT AT TGC PARK','CRICKET FINAL THIS SUNDAY',FEST.diwali?'HAPPY DIWALI':FEST.xmas?'MERRY CHRISTMAS':'HAPPY NEW YEAR 2027',FEST.diwali?'DIWALI DHAMAKA OFFER':'WEEKEND SALE'];
+  let i=0;for(const b of blocks)for(const qq of b.bld){if(qq.label||qq.h<14||i>=14)continue;if(Math.random()<0.35){const t=offers[i%offers.length];sign(t,Math.min(qq.w*0.8,14),2.6,pick(['#ff3d7f','#14081c','#ffd23f','#3df5c4']),pick(['#ffffff','#14081c']),qq.x+qq.w/2,qq.h*0.55,qq.z+qq.d+0.15,0);i++}}
+  // garba ground (park 5,5)
+  const P=blk(5,5),gx=P.ix+IS/2,gz=P.iz+IS/2;FEST.garba={x:gx,z:gz,dancers:[],r:9};
+  const pole=new THREE.Mesh(new THREE.CylinderGeometry(0.25,0.35,2.6,10),M('#d62839'));pole.position.set(gx,1.3,gz);scene.add(pole);
+  const lamp=new THREE.Mesh(new THREE.SphereGeometry(0.5,12,10),new THREE.MeshBasicMaterial({color:0xffb02e}));lamp.position.set(gx,2.9,gz);scene.add(lamp);FEST.garba.lamp=lamp;
+  const bulbs=[];for(let k=0;k<24;k++){const a=k/24*Math.PI*2;for(let t=0;t<6;t++){const r=4+t*2.2;bulbs.push([gx+Math.cos(a)*r,7.5-t*0.6+Math.sin(t)*0.3,gz+Math.sin(a)*r])}}
+  const bulbCols=[0xff3d7f,0xffd23f,0x3df5c4,0xff7a1a,0x7c5cff];bulbCols.forEach((c,ci)=>instance(new THREE.SphereGeometry(0.12,6,4),new THREE.MeshBasicMaterial({color:c}),bulbs.filter((_,k)=>k%5===ci),(dd,p)=>{dd.position.set(p[0],p[1],p[2])}));
+  const top=new THREE.Mesh(new THREE.CylinderGeometry(0.08,0.08,8,6),M('#2b2a33'));top.position.set(gx,4,gz);scene.add(top);
+  const gs=new THREE.Mesh(new THREE.PlaneGeometry(14,2.4),new THREE.MeshBasicMaterial({map:signTex('TGC GARBA NIGHT','#d62839','#ffd23f',512,88),side:THREE.DoubleSide}));gs.position.set(gx,9,gz-14);scene.add(gs);
+  const dressCols=['#d62839','#ffd23f','#ff3d7f','#3df5c4','#ff7a1a','#7c5cff','#1b998b'];
+  for(let k=0;k<(isTouch?12:20);k++){const fem=k%2===0;const h=makeHumanX({lite:isTouch,female:fem,dress:fem,shirt:pick(dressCols),pants:fem?pick(dressCols):'#ffffff',skin:pick(SKINS),hair:'#1b1b1b',hairStyle:fem?'bun':'short',sleeves:fem?'short':'long'});
+    const e={h,a:0,ang:k/(isTouch?12:20)*Math.PI*2,spd:0,phase:0,seed:k,weapon:0,act:null,side:1,combo:0};FEST.garba.dancers.push(e)}
+  // christmas tree at HQ in december, diyas in november
+  if(FEST.xmas||FEST.newyear){const t=new THREE.Group();t.position.set(HQ.ix+8,0,HQ.iz+27);for(let k=0;k<4;k++){const c=new THREE.Mesh(new THREE.ConeGeometry(3.2-k*0.7,3,12),M('#1b6b3a'));c.position.y=2+k*1.8;t.add(c)}const st=new THREE.Mesh(new THREE.OctahedronGeometry(0.6),new THREE.MeshBasicMaterial({color:0xffd23f}));st.position.y=9;t.add(st);scene.add(t)}
+  if(FEST.diwali){const diyas=[];for(const b of blocks)for(const qq of b.bld){if(Math.random()<0.5)continue;for(let k=0;k<qq.w;k+=2.2)diyas.push([qq.x+k,qq.h+1.15,qq.z+qq.d+0.45])}FEST.diyaMat=new THREE.MeshBasicMaterial({color:0xffb02e,transparent:true,opacity:0});instance(new THREE.SphereGeometry(0.16,6,4),FEST.diyaMat,diyas.slice(0,isTouch?600:1600),(dd,p)=>{dd.position.set(p[0],p[1],p[2])})}
+}
+let fwT=4;
+function festTick(dt){
+  const G=FEST.garba;if(G){const t=player.car||player;const near=d2(t.x,t.z,G.x,G.z)<90*90;const active=night>0.35||FEST.navratri;
+    for(const e of G.dancers){e.h.root.visible=active&&near;if(!active||!near)continue;e.ang+=dt*0.35;const r=G.r+Math.sin(gtime*1.5+e.seed)*0.6;e.x=G.x+Math.cos(e.ang)*r;e.z=G.z+Math.sin(e.ang)*r;e.a=e.ang+Math.PI;
+      const beat=(gtime*2.2+e.seed*0.25)%2;if(!e.act&&beat<0.05){e.act='punch';e.actT=0;e.actDur=0.35;e.side=e.seed%2?1:-1;e.combo=2}e.spd=1.6;animEnt(e,dt)}
+    G.lamp.material.color.setHSL(0.08+Math.sin(gtime*3)*0.03,1,0.55);
+    if(active&&near&&AC&&!muted&&state==='play'){G.step=G.step||0;if(G.step<AC.currentTime)G.step=AC.currentTime+0.05;const spb=60/132/2;while(G.step<AC.currentTime+0.15){const i=G.i=(G.i||0)+1;const vol=clamp(1-Math.sqrt(d2(t.x,t.z,G.x,G.z))/60,0,1);if(i%4===0||i%4===3)tone(110,55,0.18,'sine',0.7*vol,musicGain,G.step);if(i%2===1)tone(320,200,0.08,'triangle',0.18*vol,musicGain,G.step);if(i%8===6)noise(0.08,2500,'bandpass',0.2*vol,musicGain,G.step);G.step+=spb}}
+    if(state==='play'&&!player.car&&active&&Math.abs(Math.hypot(player.x-G.x,player.z-G.z)-G.r)<2.5){player.dance=player.spd<0.2;if(player.dance)storyEvent('garba')}}
+  if(FEST.diyaMat)FEST.diyaMat.opacity=night*0.95;
+  if(night>0.45&&(FEST.diwali||FEST.newyear||Math.random()<0.25)){fwT-=dt;if(fwT<=0){fwT=rnd(FEST.diwali||FEST.newyear?1.2:5,FEST.diwali||FEST.newyear?3:10);const t=player.car||player;const x=t.x+rnd(-90,90),z=t.z+rnd(-90,90),y=rnd(45,80);const col=pick(['#ff3d7f','#ffd23f','#3df5c4','#7c5cff','#ff7a1a','#ffffff']);
+    for(let i=0;i<40;i++){const a=rnd(6.28),b=rnd(-1,1),s=rnd(10,18);emit(firePool,x,y,z,Math.cos(a)*Math.sqrt(1-b*b)*s,b*s,Math.sin(a)*Math.sqrt(1-b*b)*s,rnd(0.9,1.6),rnd(1.2,2.2),col)}
+    if(AC&&!muted)setTimeout(()=>{noise(0.6,600,'lowpass',0.35);tone(80,40,0.5,'sine',0.25)},400)}}
+}
+// ---------- v4: story + tasks ----------
+const BOSS={name:'Raj Bhai',x:HQ.x0+BS/2-5,z:HQ.z0+BS-2.5};
+const TASKS=[
+  {id:'meet',t:'Welcome to the City',story:'Raj Bhai runs TGC and knows everyone in the city. He wants to meet the new kid in town.',goal:'Talk to Raj Bhai outside TGC HQ',where:()=>BOSS,ev:'boss',reward:500},
+  {id:'car',t:'Get Some Wheels',story:'"Nobody respects you on foot," says Raj Bhai. "Grab a ride."',goal:'Get into any car',ev:'car',reward:500},
+  {id:'kirana',t:'Kirana Run',story:'Sharma Uncle at the kirana store has been good to TGC. Go and say hello.',goal:'Visit a Kirana store (TGC STORE sign)',where:()=>DOORS.find(d=>d.type==='kirana'),ev:'shop:kirana',reward:800},
+  {id:'eat',t:'Chai Break',story:'Big days need fuel. Grab something to eat at any food shop.',goal:'Buy food at a food shop',where:()=>DOORS.find(d=>d.type==='food'),ev:'buy',reward:600},
+  {id:'gym',t:'Get Strong',story:'The streets are rough. Train at TGC Fitness so your punches really land.',goal:'Do a training session at the gym',where:()=>DOORS.find(d=>d.type==='gym'),ev:'gym',reward:1200},
+  {id:'race',t:'Street Race',story:'A rival crew says TGC drivers are slow. Prove them wrong.',goal:'Win the Street Race mission at TGC HQ',where:()=>GIVERS[0],check:()=>done.race>0,reward:2000},
+  {id:'fight',t:'Gully Fight',story:'The rival crew did not like losing. They are coming for you.',goal:'Win the Street Fight mission at TGC HQ',where:()=>GIVERS[2],check:()=>done.fight>0,reward:3000},
+  {id:'badminton',t:'Sports Day',story:'TGC Sports City is opening. Raj Bhai wants TGC to win something.',goal:'Win a badminton match at TGC Badminton Arena',where:()=>VENUES[2],ev:'sportwin:badminton',reward:3000},
+  {id:'six',t:'Six Machine',story:'The whole city is watching the cricket. Give them a show.',goal:'Hit a SIX at TGC Cricket Stadium',where:()=>VENUES[0],ev:'six',reward:3500},
+  {id:'goal',t:'Golden Goal',story:'TGC FC needs a striker. Show them what you have got.',goal:'Score a goal at TGC Football Stadium',where:()=>VENUES[1],ev:'goal',reward:3500},
+  {id:'mall',t:'Mall Day',story:'The new TGC Mall has a mega sale. Everyone is going.',goal:'Visit TGC Mall',where:()=>DOORS.find(d=>d.type==='mall'),ev:'shop:mall',reward:1500},
+  {id:'garba',t:'Garba Night',story:'Navratri vibes at TGC Garba Night. Join the circle and dance.',goal:'Dance in the Garba circle at night (TGC Garba Night park)',where:()=>FEST.garba,ev:'garba',reward:2500},
+  {id:'sky',t:'Sky High',story:'Raj Bhai wants an aerial view of the city. Fly a helicopter above 30 metres.',goal:'Fly a helicopter above 30 m',where:()=>SPOTS[0],check:()=>player.car&&player.car.kind==='heli'&&player.car.y>30,reward:4000},
+  {id:'buy',t:'Big Shopper',story:'Real bosses own their rides. Buy a car at TGC Motors.',goal:'Buy any vehicle at TGC Motors',where:()=>SHOP_MARK,ev:'buycar',reward:5000},
+  {id:'wanted',t:'Most Wanted',story:'The police chief wants TGC off the streets. Show him you cannot be caught.',goal:'Complete the Most Wanted mission at TGC HQ',where:()=>GIVERS[3],check:()=>done.escape>0,reward:8000},
+  {id:'legend',t:'City Legend',story:'Final test. Win the big football match on HARD and become a city legend.',goal:'Win a football match on Hard',where:()=>VENUES[1],ev:'sportwin:football:2',reward:25000},
+];
+let story={i:0};
+function curTask(){return TASKS[story.i]||null}
+function storyEvent(ev,a,b){const T=curTask();if(!T||!T.ev)return;const key=[ev,a,b].filter(x=>x!==undefined&&x!==null).join(':');if(key===T.ev||key.startsWith(T.ev+':')||(T.ev===ev))completeTask()}
+function completeTask(){const T=curTask();if(!T)return;player.money+=T.reward;story.i++;save();big('TASK COMPLETE',T.t+'  +'+fmtMoney(T.reward),'#3df5c4');sfx('pass');const N=curTask();
+  setTimeout(()=>{if(N&&state==='play')toast('New task: '+N.t+'. '+N.goal,5);else if(!N)big('STORY COMPLETE','You are a TGC City Legend!','#ffd23f')},3000)}
+function storyTick(){const T=curTask();if(T&&T.check&&T.check())completeTask();if(job&&inside&&inside.door===job.target){player.money+=job.reward;big('DELIVERED','+'+fmtMoney(job.reward),'#3df5c4');sfx('cash');job=null;save()}}
+function storyTarget(){if(job)return job.target;const T=curTask();return T&&T.where?T.where():null}
+function bossTalk(){const T=curTask();if(T&&T.id==='meet'){showDialog('Raj Bhai','Arre, you are the new one! Welcome to Game Changers City. I run TGC. Help me out and this city will be yours. First, get yourself some wheels.',[{t:'Let us go!',f:()=>storyEvent('boss')}],{pitch:0.85,rate:0.95})}
+  else{const lines=T?[`Your task: ${T.t}. ${T.story}`]:['You did it all. You are a legend now. Enjoy the city!'];showDialog('Raj Bhai',lines[0],[{t:'Got it'}],{pitch:0.85,rate:0.95})}}
+function openTasks(){$('#taskBody').innerHTML=TASKS.map((T,i)=>`<div class="taskRow ${i<story.i?'done':i===story.i?'cur':''}"><b>${i+1}. ${T.t}</b><small>${i<=story.i?T.story:'Locked'}</small><span>${i<story.i?'✓ DONE':i===story.i?T.goal:''}</span><em>${fmtMoney(T.reward)}</em></div>`).join('');show('tasks')}
+
+function nearBoss(){return !player.car&&!inside&&d2(BOSS.x,BOSS.z,player.x,player.z)<3*3}
+function actionF(){if(player.car){exitCar();return}
+  if(inside){const R=inside.R;if(d2(player.x,player.z,R.keeper.x,R.keeper.z+1.4)<2.4*2.4)shopDialog(R);else if(d2(player.x,player.z,R.door.x,R.door.z)<3*3)exitShop();else{for(const e of R.extra)if(d2(player.x,player.z,e.x,e.z)<2.5*2.5){const A=ARCH[e.arch]||ARCH.young;showDialog(e.arch?'Shopper':'Security',e.line||pick(A.lines),[],A.voice);return}}return}
+  const d=nearDoor();if(d){if(stars()>0){toast('Lose the cops before you go inside.',2);return}enterShop(d);return}
+  if(nearBoss()){bossTalk();return}
+  for(const g of GUARDS)if(d2(g.x,g.z,player.x,player.z)<2.6*2.6){showDialog(g.name,pick(g.lines),[],{pitch:0.8});return}
+  enterCar();if(player.car)return;talkNearest()}
+const GUARDS=[];let bossEnt=null;
+function initV4(){
+  for(const d of (window.__doors||[]))addDoor(d[0],d[1],d[2],d[3]);
+  buildFestive();
+  const bh=makeHumanX({shirt:'#ffffff',sleeves:'long',inner:'#ffd23f',pants:'#1d1c22',skin:'#c68642',hair:'#1b1b1b',hairStyle:'short',beard:true,shades:true});bossEnt={h:bh,x:BOSS.x,z:BOSS.z,a:0,spd:0,phase:0,seed:2,weapon:0};bh.root.position.set(BOSS.x,0,BOSS.z);
+  const el=document.createElement('div');el.className='lbl';el.style.color='#ffd23f';el.textContent='RAJ BHAI · TALK';labelsEl.appendChild(el);BOSS.el=el;
+  for(const d of DOORS)if(d.type==='office'||d.type==='mall'){const side=d.face+Math.PI/2;const gx=d.x+Math.sin(side)*1.6,gz=d.z+Math.cos(side)*1.6;const h=makeHumanX({lite:isTouch,shirt:'#1d1c22',pants:'#1d1c22',sleeves:'long',skin:pick(SKINS),hairStyle:'cap',cap:'#1d1c22',shades:true,muscle:true});
+    const g={h,x:gx,z:gz,a:d.face,spd:0,phase:0,seed:rnd(9),weapon:0,name:d.type==='mall'?'Mall Security':'Security Guard',lines:['Good day, sir. Entry is open.','Please keep the area clear.','I am watching everything. Behave!','The boss is upstairs today.']};h.root.position.set(gx,0,gz);h.root.rotation.y=d.face;GUARDS.push(g)}
+  const dl=document.createElement('div');dl.className='lbl';dl.style.color='#3df5c4';labelsEl.appendChild(dl);window.__doorLbl=dl;
+}
+function v4Tick(dt){
+  footsteps();speedFeel(dt);festTick(dt);storyTick();
+  if(inside){interiorTick(dt);doorRing.visible=false;window.__doorLbl.hidden=true;return}
+  const t=player;let best=null,bd=18*18;if(!player.car)for(const d of DOORS){const dd=d2(d.x,d.z,t.x,t.z);if(dd<bd){bd=dd;best=d}}
+  doorRing.visible=!!best;if(best){doorRing.position.set(best.x,0.05,best.z);doorRing.material.opacity=0.55+Math.sin(gtime*5)*0.3;const p=toScreen(best.x,2.4,best.z);const dl=window.__doorLbl;if(p&&bd<10*10){dl.hidden=false;dl.textContent='ENTER '+best.name;dl.style.left=p.x+'px';dl.style.top=p.y+'px'}else dl.hidden=true}else window.__doorLbl.hidden=true;
+  if(bossEnt&&d2(bossEnt.x,bossEnt.z,t.x,t.z)<80*80){bossEnt.a=Math.atan2(t.x-bossEnt.x,t.z-bossEnt.z);animHuman(bossEnt.h,bossEnt,dt);bossEnt.h.root.rotation.y=bossEnt.a;const p=toScreen(BOSS.x,2.5,BOSS.z);if(p&&d2(BOSS.x,BOSS.z,t.x,t.z)<25*25){BOSS.el.hidden=false;BOSS.el.style.left=p.x+'px';BOSS.el.style.top=p.y+'px'}else BOSS.el.hidden=true}else if(BOSS.el)BOSS.el.hidden=true;
+  for(const g of GUARDS)if(d2(g.x,g.z,t.x,t.z)<60*60){animHuman(g.h,g,dt);g.h.root.rotation.y=g.a}
+}
 // ---------- death ----------
 function die(kind){
   if(state!=='play')return;state='dead';deathT=3.2;deathKind=kind;
@@ -2299,7 +2564,7 @@ Object.assign(CHEATS,{
   TGCFAST(){cheats.fast=!cheats.fast;return'Super speed '+(cheats.fast?'ON':'OFF')},
   TGCSLOW(){cheats.slow=!cheats.slow;return'Slow motion '+(cheats.slow?'ON':'OFF')},
   TGCBIGHEAD(){cheats.bighead=!cheats.bighead;const s=cheats.bighead?2.2:1;for(const p of peds)p.h.head.scale.setScalar(s);player.h.head.scale.setScalar(s);return'Big heads '+(cheats.bighead?'ON':'OFF')},
-  TGCPINK(){let n=0;for(const c of cars)if(!c.dead&&!c.k.air&&c.kind!=='tank'){c.col='#ff5fa2';for(const b of c.bodies)b.material=M('#ff5fa2');n++}return n+' cars are now pink'},
+  TGCPINK(){let n=0;for(const c of cars)if(!c.dead&&!c.k.air&&c.kind!=='tank'){c.col='#ff5fa2';for(const b of c.bodies)b.material=paint('#ff5fa2');n++}return n+' cars are now pink'},
   TGCRIOT(){for(const p of peds)if(!p.dead&&p.type==='civ'){p.fight=true;p.panic=0}return'The whole street wants to fight you'},
   TGCARMOR(){player.armor=100;return'Full armor'},
   TGCSUNSET(){dayT=Math.floor(dayT)+0.22;return'Golden hour'},
@@ -2345,14 +2610,14 @@ function update(dt){
   if(state==='play'){updatePlayer(dt);stats.time+=dt}
   updateCars(dt);
   if(player.car){player.x=player.car.x;player.z=player.car.z}
-  updatePeds(dt);updateRockets(dt);updateHeli(dt);updatePolice(dt);updateMission(dt);updatePickups(dt);updateRain(dt);manage(dt);updateSpots(dt);ambientTick(dt);updateDebris(dt);updateSkyFx(dt);showroomTick(dt);clubTick(dt);venueCheck();shopCheck();musicTick();engineTick();
+  updatePeds(dt);updateRockets(dt);updateHeli(dt);updatePolice(dt);updateMission(dt);updatePickups(dt);updateRain(dt);manage(dt);updateSpots(dt);ambientTick(dt);updateDebris(dt);updateSkyFx(dt);showroomTick(dt);clubTick(dt);venueCheck();shopCheck();v4Tick(dt);musicTick();engineTick();
   updatePool(firePool,dt,false);updatePool(smokePool,dt,true);
   for(const t of tracers){if(t.t>0){t.t-=dt;if(t.t<=0)t.l.visible=false}}
   if(state==='dead'){deathT-=dt/0.35;if(deathT<=0)respawn()}
   // player rig
-  if(player.car&&state==='play'){const st=seatFor(player.car);player.seated=true;player.recline=st&&st[3]?-0.32:-0.08;player.spd=0;player.act=null;animHuman(player.h,player,dt);placeSeated(player.h,player.car);player.h.gun.visible=false;player.h.tube.visible=false}
+  if(player.car&&state==='play'){const st=seatFor(player.car);player.seated=true;player.recline=st&&st[3]?-0.42:-0.08;player.spd=0;player.act=null;animHuman(player.h,player,dt);placeSeated(player.h,player.car);player.h.gun.visible=false;player.h.tube.visible=false}
   else player.seated=false;
-  if(!player.car&&state!=='menu'){const h=player.h;player.weapon=player.w;animHuman(h,player,dt);h.root.position.set(player.x,player.y+(player.down>0?0.08:0),player.z);h.root.rotation.y=player.a;
+  if(!player.car&&state!=='menu'){const h=player.h;h.root.scale.setScalar(cheats.giant?2.4:1);player.weapon=player.w;animHuman(h,player,dt);h.root.position.set(player.x,player.y+(player.down>0?0.08:0),player.z);h.root.rotation.y=player.a;
     h.gun.visible=player.w>0&&player.w!==4;h.tube.visible=player.w===4}
   for(const b of blocks)for(const q of b.bld)if(q.spin)q.spin.rotation.z+=dt*0.8;
   shake*=Math.pow(0.02,dt);hurtT=Math.max(0,hurtT-dt);
@@ -2377,6 +2642,8 @@ function mapIcons(g,P,r,full){
   const o=objective();if(o){const p=P(o.x,o.z);if(p){g.fillStyle='#ffe066';g.beginPath();g.arc(p[0],p[1],r*0.7+Math.sin(gtime*8)*2,0,7);g.fill();g.strokeStyle='#000';g.stroke()}}
   const blink=Math.sin(gtime*12)>0;
   for(const c of cars){if(c.dead)continue;if(c.driver==='cop'||c.driver==='army'){const p=P(c.x,c.z);if(!p)continue;g.fillStyle=c.driver==='army'?'#8fa35a':blink?'#ff3d5a':'#4d8dff';g.fillRect(p[0]-3,p[1]-3,6,6)}else if(c.golden&&c!==player.car){const p=P(c.x,c.z);if(p){g.fillStyle='#ffcf33';g.fillRect(p[0]-3,p[1]-3,6,6)}}}
+  if(player.mapTokens)for(const k of tokens){if(k.got)continue;const p=P(k.x,k.z);if(p){g.fillStyle='#3df5c4';g.beginPath();g.arc(p[0],p[1],r*0.4,0,7);g.fill();g.strokeStyle='#000';g.lineWidth=1;g.stroke()}}
+  if(!mission&&!inside){const p=P(BOSS.x,BOSS.z);if(p){g.fillStyle='#ffd23f';g.beginPath();g.arc(p[0],p[1],r*0.5,0,7);g.fill();g.strokeStyle='#000';g.stroke()}}
   for(const sp of SPOTS){const v=sp.car;if(!v||v.dead||v===player.car)continue;const p=P(v.x,v.z);if(!p)continue;g.save();g.translate(p[0],p[1]);g.fillStyle=v.kind==='boat'?'#3df5c4':'#ffffff';g.strokeStyle='#000';g.lineWidth=1.5;
     if(v.kind==='heli'){g.beginPath();g.arc(0,0,r*0.45,0,7);g.fill();g.stroke();g.beginPath();g.moveTo(-r*0.8,0);g.lineTo(r*0.8,0);g.moveTo(0,-r*0.8);g.lineTo(0,r*0.8);g.stroke()}
     else if(v.kind==='plane'){g.beginPath();g.moveTo(0,-r*0.8);g.lineTo(r*0.7,r*0.5);g.lineTo(0,r*0.2);g.lineTo(-r*0.7,r*0.5);g.closePath();g.fill();g.stroke()}
@@ -2412,11 +2679,12 @@ function updateHud(dt){
   if(cheats.god)wtxt+=' · GOD';setH(hudEls.wp,'wp',wtxt);
   const s=stars(),sk=s+'|'+(evade>0.5&&s>0);if(lastHud.stars!==sk){lastHud.stars=sk;[...hudEls.stars.children].forEach((e,i)=>e.classList.toggle('on',i<s));hudEls.stars.classList.toggle('flash',evade>0.5&&s>0)}
   if(c){hudEls.sp.hidden=false;const extra=c.kind==='plane'?` · ALT ${Math.round(c.y)} m · THR ${Math.round(c.throttle*100)}%`:c.kind==='heli'?` · ALT ${Math.round(c.y)} m`:` · ${STATIONS[station]}`;setH(hudEls.sp,'sp',`<b>${Math.round(Math.abs(c.speed)*3.6)}</b> km/h${extra} · HP ${Math.max(0,Math.round(c.hp/c.k.hp*100))}%`)}else hudEls.sp.hidden=true;
+  {const T=curTask();const th=$('#taskHud');th.hidden=!(state==='play'&&!mission&&(T||job));if(!th.hidden)setH(th,'th',job?`<small>JOB</small>Deliver documents to ${job.target.name}`:`<small>TASK ${story.i+1} · ${T.t.toUpperCase()}</small>${T.goal}`)}
   if(mission){hudEls.ms.hidden=false;const m=mission;let t='';
     if(m.id==='race')t=`Checkpoint ${m.i+1} of ${m.cps.length}${player.car?'':' · Get a car!'}`;else if(m.id==='rampage')t=`Vehicles destroyed: ${m.count} / ${m.need}`;else if(m.id==='fight')t=`Rival crew down: ${m.count} / ${m.need}`;else t=stars()?'Lose the cops! Get out of sight.':'Stay clean...';
     setH(hudEls.ms,'ms',`<small>${m.g.name.toUpperCase()} · ${Math.max(0,Math.ceil(m.time))}s</small>${t}`)}else hudEls.ms.hidden=true;
   const o=objective();
-  if(o&&state==='play'){const t=player.car||player;const ang=Math.atan2(o.x-t.x,o.z-t.z);const rel=angDiff(camAimAngle(),ang);hudEls.gps.hidden=false;hudEls.gpsA.style.transform=`rotate(${-rel}rad)`;setH(hudEls.gpsD,'gd',Math.round(Math.sqrt(d2(o.x,o.z,t.x,t.z)))+' m')}else hudEls.gps.hidden=true;
+  if(o&&state==='play'&&!inside){const t=player.car||player;const ang=Math.atan2(o.x-t.x,o.z-t.z);const rel=angDiff(camAimAngle(),ang);hudEls.gps.hidden=false;hudEls.gpsA.style.transform=`rotate(${-rel}rad)`;setH(hudEls.gpsD,'gd',Math.round(Math.sqrt(d2(o.x,o.z,t.x,t.z)))+' m')}else hudEls.gps.hidden=true;
   hudEls.x.hidden=!(state==='play'&&!isTouch&&(player.w>0||(player.car&&player.car.kind==='tank')));
   if(!hudEls.x.hidden){const o=player.car||player;computeAim(o.x,o.z);hudEls.x.classList.toggle('on',!!aimInfo.t)}
   {const am=$('#aimMark');let show=false;if(isTouch&&state==='play'&&(player.w>0||(player.car&&player.car.kind==='tank'))){const o=player.car||player;const t=bestAutoTarget(o.x,o.z,player.car?player.car.a:player.a);if(t){const p=toScreen(t.x,(t.y||0)+2.4,t.z);if(p){show=true;am.style.left=p.x+'px';am.style.top=p.y+'px'}}}am.hidden=!show}
@@ -2429,7 +2697,7 @@ function updateHud(dt){
   for(const v of [...VENUES,SHOP_MARK]){if(!v.el)continue;const p=state==='play'&&d2(v.x,v.z,camFocus.x,camFocus.z)<110*110&&toScreen(v.x,15,v.z);if(p){v.el.hidden=false;v.el.style.left=p.x+'px';v.el.style.top=p.y+'px'}else v.el.hidden=true}
   {const sp=SPRAY.pad;const p=state==='play'&&d2(sp.x,sp.z,camFocus.x,camFocus.z)<100*100&&toScreen(sp.x+sp.w/2,5,sp.z+sp.d/2);if(p){sprayLbl.hidden=false;sprayLbl.style.left=p.x+'px';sprayLbl.style.top=p.y+'px'}else sprayLbl.hidden=true}
   for(let i=floaters.length-1;i>=0;i--){const f=floaters[i];f.t+=dt;f.y+=dt*1.2;const p=toScreen(f.x,f.y,f.z);if(p){f.el.style.left=p.x+'px';f.el.style.top=p.y+'px';f.el.style.opacity=clamp(1.5-f.t,0,1)}else f.el.style.opacity=0;if(f.t>1.5){f.el.remove();floaters.splice(i,1)}}
-  if(isTouch){const av=player.car&&player.car.k.air;$('#tbFire').textContent=player.car?'FIRE':player.w>0?'FIRE':'PUNCH';$('#tbKick').textContent=av?'DOWN':player.car?'BRAKE':'KICK';$('#tbJump').textContent=av?'UP':player.car?'DRIFT':'JUMP';$('#rotHint').hidden=!((state==='play'||state==='sport')&&VH>VW);const gc=state==='play'&&player.car&&!player.car.k.air;$('#stick').hidden=!!gc;$('#carPad').hidden=!gc;$('#pedals').hidden=!gc;
+  if(isTouch){const av=player.car&&player.car.k.air;$('#tbFire').textContent=player.car?'FIRE':player.w>0?'FIRE':'PUNCH';if(state==='play')$('#tbCar').textContent=player.car?'EXIT':inside?'TALK':nearDoor()?'ENTER':nearBoss()?'TALK':'CAR';$('#tbKick').textContent=av?'DOWN':player.car?'BRAKE':'KICK';$('#tbJump').textContent=av?'UP':player.car?'DRIFT':'JUMP';$('#rotHint').hidden=!((state==='play'||state==='sport')&&VH>VW);const gc=state==='play'&&player.car&&!player.car.k.air;$('#stick').hidden=!!gc;$('#carPad').hidden=!gc;$('#pedals').hidden=!gc;
     if(state==='sport'&&sport){const L=sport.labels;['tbGun','tbJump','tbFire','tbCar','tbKick'].forEach((id,i)=>{const b=$('#'+id);b.textContent=L[i];b.style.visibility=L[i]?'visible':'hidden'})}else['tbGun','tbJump','tbFire','tbCar','tbKick'].forEach(id=>$('#'+id).style.visibility='visible')}
   if(state==='map')drawBigMap();
 }
@@ -2446,6 +2714,7 @@ addEventListener('keydown',e=>{
   if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','Tab'].includes(e.code))e.preventDefault();
   if(state==='select'){if(e.code==='ArrowLeft'||e.code==='KeyA')$('#heroPrev').click();else if(e.code==='ArrowRight'||e.code==='KeyD')$('#heroNext').click();else if(e.code==='Enter'||e.code==='Space')$('#heroGo').click();return}
   if(state==='map'&&(e.code==='KeyM'||e.code==='Escape')){closeMap();return}
+  if(state==='talk'){if(e.code==='Escape'||e.code==='Enter'||e.code==='Space'){const b=$('#dlgOpts').querySelector('button');if(e.code==='Escape')closeDialog();else if(b)b.click()}return}
   if(state==='sport'){if(e.code==='Escape'){endSport('quit',0);toast('You left the match',2)}return}
   if((state==='sportmenu'||state==='shop')&&e.code==='Escape'){closeOverlay();return}
   if(state!=='play'){if(e.code==='Escape'&&state==='paused')resume();return}
@@ -2453,7 +2722,7 @@ addEventListener('keydown',e=>{
   if(e.key&&e.key.length===1&&/[a-z]/i.test(e.key)){typed=(typed+e.key.toUpperCase()).slice(-14);for(const code in CHEATS)if(typed.endsWith(code)){runCheat(code);typed='';return}
     if(trySecret(typed)){typed='';return}
     const at=typed.lastIndexOf('TGC');if(at>=0){const part=typed.slice(at);if(Object.keys(CHEATS).some(c=>c.startsWith(part)))return}}
-  if(e.code==='KeyF'||e.code==='KeyE'||e.code==='Enter'){player.car?exitCar():enterCar()}
+  if(e.code==='KeyF'||e.code==='KeyE'||e.code==='Enter'){actionF()}
   else if(e.code==='Escape'||e.code==='KeyP')pause();
   else if(e.code==='KeyM')openMap();
   else if(e.code==='KeyQ')cycleWeapon(-1);
@@ -2504,21 +2773,21 @@ const endStick=e=>{if(e.pointerId===stick.id){stick.active=false;stick.x=stick.y
 stickEl.addEventListener('pointerup',endStick);stickEl.addEventListener('pointercancel',endStick);
 document.querySelectorAll('.tb').forEach(b=>{const k=b.dataset.k;
   b.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();initAudio();TB[k]=true;b.classList.add('on');try{b.setPointerCapture(e.pointerId)}catch(_){}
-    if(state!=='play')return;if(k==='enter'){player.car?exitCar():enterCar()}if(k==='weapon'){cycleWeapon(1);toast(WEAPONS[player.w].name,1)}});
+    if(state!=='play')return;if(k==='enter'){actionF()}if(k==='weapon'){cycleWeapon(1);toast(WEAPONS[player.w].name,1)}});
   const up=()=>{TB[k]=false;b.classList.remove('on')};b.addEventListener('pointerup',up);b.addEventListener('pointercancel',up);b.addEventListener('lostpointercapture',up)});
 
 addEventListener('touchstart',()=>{if(!isTouch){isTouch=true;if(state==='play'){$('#touch').hidden=false;$('#keys').hidden=true}}},{passive:true});
 // ---------- screens ----------
 const SAVEKEY='tgc-city-3d-save-v1';
-function save(){try{localStorage.setItem(SAVEKEY,JSON.stringify({garage:player.garage||[],money:player.money,ammo:player.ammo,tokens:tokens.map((t,i)=>t.got?i:-1).filter(i=>i>=0),done,stats}))}catch(e){}}
+function save(){try{localStorage.setItem(SAVEKEY,JSON.stringify({story:story.i,str:player.str||0,mapTokens:!!player.mapTokens,drone:!!player.drone,garage:player.garage||[],money:player.money,ammo:player.ammo,tokens:tokens.map((t,i)=>t.got?i:-1).filter(i=>i>=0),done,stats}))}catch(e){}}
 function load(){try{return JSON.parse(localStorage.getItem(SAVEKEY)||'null')}catch(e){return null}}
-function show(id){['menu','help','cheats','pause','select','sportMenu','shopMenu'].forEach(s=>$('#'+s).hidden=s!==id)}
+function show(id){['menu','help','cheats','pause','select','sportMenu','shopMenu','tasks'].forEach(s=>$('#'+s).hidden=s!==id)}
 let returnTo='menu';
 function newWorld(saved){
   cars=cars.filter(c=>{const keep=c.driver==='ai';if(!keep)removeCar(c);return keep});peds=peds.filter(p=>{if(p.dead||p.mission){removePed(p);return false}return true});
   for(const r of rockets)scene.remove(r.m);rockets=[];heli=null;if(heliMesh)heliMesh.visible=false;mission=null;heat=0;evade=0;
   Object.assign(player,{x:START.x,z:START.z,y:0,vy:0,a:Math.PI,hp:100,armor:0,car:null,w:0,down:0,act:null,air:false,aim:0});
-  player.money=saved?saved.money||0:0;player.garage=saved&&saved.garage?saved.garage.slice():[];player.ammo=saved&&saved.ammo?saved.ammo.slice(0,6):[1,0,0,0,0,0];while(player.ammo.length<6)player.ammo.push(0);
+  player.money=saved?saved.money||0:0;player.garage=saved&&saved.garage?saved.garage.slice():[];story.i=saved&&saved.story||0;player.str=saved&&saved.str||0;player.mapTokens=!!(saved&&saved.mapTokens);player.drone=!!(saved&&saved.drone);inside=null;job=null;player.ammo=saved&&saved.ammo?saved.ammo.slice(0,6):[1,0,0,0,0,0];while(player.ammo.length<6)player.ammo.push(0);
   for(const k in done)done[k]=saved&&saved.done&&saved.done[k]||0;
   Object.assign(stats,saved&&saved.stats?saved.stats:{ko:0,cars:0,maxStars:0,time:0});
   initTokens(saved?saved.tokens:null);initPickups();
@@ -2529,7 +2798,7 @@ function newWorld(saved){
 function startGame(fresh){
   initAudio();const saved=fresh?null:load();if(fresh)try{localStorage.removeItem(SAVEKEY)}catch(e){}
   newWorld(saved);state='play';show(null);$('#hud').hidden=false;$('#touch').hidden=!isTouch;$('#keys').hidden=isTouch;lockWanted=true;requestLock();
-  toastQ=[];toast('Welcome to Game Changers City.',3);
+  toastQ=[];toast('Welcome to Game Changers City.',3);if(story.i===0)toast('Talk to Raj Bhai (yellow on the map) outside TGC HQ to start your story.',5);
   toast(isTouch?'Drag the right side of the screen to spin the camera around you.':'Move the mouse to look around. Left click punches, right click kicks.',4.5);
   toast(isTouch?'Your sports car is parked just south. Walk to it and tap CAR.':'Your sports car is parked just south. Walk up to it and press F.',4);
   toast('Glowing pillars at the HQ corners start missions.',4);
@@ -2544,12 +2813,12 @@ function openSelect(fresh){initAudio();pendingFresh=fresh;state='select';player.
 function selectTick(dt){gtime+=dt;showT+=dt;if(showT>2.2){showT=0;showI=(showI+1)%5;player.dance=false;if(showI===1){player.combo=2;player.comboT=0;player.act='punch';player.actT=0;player.actDur=0.42;player.side=-1}else if(showI===2){player.act='kick';player.actT=0;player.actDur=0.55}else if(showI===3)player.dance=true;else if(showI===4){player.act='punch';player.combo=0;player.actT=0;player.actDur=0.3;player.side=1}}
   if(player.act){player.actT+=dt;if(player.actT>=player.actDur)player.act=null}player.weapon=0;animHuman(player.h,player,dt);player.h.root.position.set(player.x,0,player.z);player.h.root.rotation.y=player.a+Math.sin(gtime*0.4)*0.3;
   updatePool(firePool,dt,false);updatePool(smokePool,dt,true);updateTime(dt);ambientTick(dt)}
-$('#playBtn').onclick=()=>openSelect(false);$('#newBtn').onclick=()=>openSelect(true);
+$('#playBtn').onclick=()=>{goFullscreen();openSelect(false)};$('#newBtn').onclick=()=>{goFullscreen();openSelect(true)};
 $('#heroPrev').onclick=()=>{setHero(heroIdx-1);renderHero();sfx('pickup')};$('#heroNext').onclick=()=>{setHero(heroIdx+1);renderHero();sfx('pickup')};
-$('#heroGo').onclick=()=>{player.dance=false;player.act=null;startGame(pendingFresh)};$('#heroBack').onclick=()=>{state='menu';player.h.root.visible=false;show('menu')};
+$('#heroGo').onclick=()=>{goFullscreen();player.dance=false;player.act=null;startGame(pendingFresh)};$('#heroBack').onclick=()=>{state='menu';player.h.root.visible=false;show('menu')};
 $('#helpBtn').onclick=()=>{returnTo='menu';show('help')};$('#cheatsBtn').onclick=()=>{returnTo='menu';show('cheats');$('#cheatMsg').textContent=''};
 $('#pHelp').onclick=()=>{returnTo='pause';show('help')};$('#pCheats').onclick=()=>{returnTo='pause';show('cheats');$('#cheatMsg').textContent=''};
-$('#resumeBtn').onclick=resume;$('#garageBtn').onclick=()=>{openShop(false)};$('#smBack').onclick=closeOverlay;$('#shopBack').onclick=closeOverlay;$('#camBtn').onclick=e=>{e.stopPropagation();cycleCam()};$('#pauseBtn').onclick=e=>{e.stopPropagation();pause()};
+$('#resumeBtn').onclick=()=>{goFullscreen();resume()};$('#fullBtn').onclick=e=>{e.stopPropagation();if(isFull()&&document.exitFullscreen&&document.fullscreenElement)document.exitFullscreen();else{goFullscreen();if(isIOS&&!isFull())toast('On iPhone: tap Share, then Add to Home Screen, to play full screen.',5)}};$('#tasksBtn').onclick=()=>{returnTo='pause';openTasks()};$('#taskHud').onclick=()=>{if(state==='play'){pause();openTasks()}};$('#tasksBack').onclick=()=>{renderStats();show('pause')};$('#voiceBtn').onclick=()=>{voicesOn=!voicesOn;$('#voiceBtn').textContent='VOICES: '+(voicesOn?'ON':'OFF')};$('#garageBtn').onclick=()=>{openShop(false)};$('#smBack').onclick=closeOverlay;$('#shopBack').onclick=closeOverlay;$('#camBtn').onclick=e=>{e.stopPropagation();cycleCam()};$('#pauseBtn').onclick=e=>{e.stopPropagation();pause()};
 $('#quitBtn').onclick=()=>{save();state='menu';$('#hud').hidden=true;$('#touch').hidden=true;player.h.root.visible=false;engineOff();refreshMenu();show('menu')};
 $('#muteBtn').onclick=()=>{muted=!muted;$('#muteBtn').textContent='SOUND: '+(muted?'OFF':'ON')};
 function applyQuality(){renderer.setPixelRatio(HIGH?Math.min(window.devicePixelRatio||1,isTouch?1.3:1.75):0.75);resize();scene.fog.far=HIGH?330:230;$('#qualBtn').textContent='GRAPHICS: '+(HIGH?'HIGH':'FAST')}
@@ -2558,11 +2827,11 @@ document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>{const id=b.d
 function doCheat(){const v=$('#cheatInput').value;if(state==='menu'){$('#cheatMsg').textContent='Start the game first, then enter codes from the pause menu.';return}const r=runCheat(v)||trySecret(v);$('#cheatMsg').textContent=r?('Activated: '+r):'That code does nothing. Check the list below.';$('#cheatInput').value=''}
 $('#cheatGo').onclick=doCheat;$('#cheatInput').addEventListener('keydown',e=>{if(e.key==='Enter')doCheat()});
 function refreshMenu(){const s=load();$('#newBtn').hidden=!s;$('#playBtn').textContent=s?'CONTINUE':'PLAY'}
-refreshMenu();if(isTouch)$('#menuNote').textContent='Tap PLAY · Turn your phone sideways · Sound on for the radio';
+refreshMenu();if(isIOS&&!isFull())$('#iosTip').hidden=false;if(isTouch)$('#menuNote').textContent='Tap PLAY · Turn your phone sideways · Sound on for the radio';
 applyQuality();
 
 // ---------- loop ----------
-buildSportsCity();{SHOP_MARK.m=pillar('#ffd23f');SHOP_MARK.m.position.set(SHOP_MARK.x,7,SHOP_MARK.z);const el=document.createElement('div');el.className='lbl';el.style.color='#ffd23f';el.textContent='TGC MOTORS · BUY CARS';labelsEl.appendChild(el);SHOP_MARK.el=el}
+buildSportsCity();initV4();{SHOP_MARK.m=pillar('#ffd23f');SHOP_MARK.m.position.set(SHOP_MARK.x,7,SHOP_MARK.z);const el=document.createElement('div');el.className='lbl';el.style.color='#ffd23f';el.textContent='TGC MOTORS · BUY CARS';labelsEl.appendChild(el);SHOP_MARK.el=el}
 initTokens(null);initPickups();
 for(let i=0;i<MAXCARS;i++)spawnTraffic();for(let i=0;i<MAXPEDS;i++)spawnPed();
 paintSky(DAYTOP,DAYHOR,null);
