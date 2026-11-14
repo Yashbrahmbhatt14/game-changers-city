@@ -1025,6 +1025,7 @@ const HEROES=[
   {id:'shah',name:'TGC SHAH',role:'CREW · THE STRATEGIST',desc:'Sharp suit, sharper mind. Shah plans every TGC move before it happens.',o:{shirt:'#3a2a5e',inner:'#f2f2f2',sleeves:'long',pants:'#1d1c22',skin:'#c68642',hair:'#141414',hairStyle:'quiff',beard:true,watch:'#d4af37',collar:true,shoes:'#3a2a1e',belt:true}},
   {id:'vansh',name:'TGC VANSH',role:'CREW · THE DRIVER',desc:'Red cap, steady hands. Vansh can drive anything with wheels.',o:{shirt:'#e94f37',inner:'#14141a',sleeves:'short',pants:'#2d3142',skin:'#d9a066',hair:'#1b1b1b',hairStyle:'cap',cap:'#e94f37',shoes:'#ffffff',sole:'#e94f37',watch:'#14141a'}},
   {id:'equinox',name:'TGC EQUINOX',role:'CREW · NIGHT RIDER',desc:'Ice-blue hair and shades. Equinox owns the city after dark.',o:{shirt:'#101820',inner:'#3df5c4',sleeves:'long',pants:'#101820',skin:'#e0ac69',hair:'#7cc6ff',hairStyle:'spiky',shades:true,shoes:'#3df5c4',sole:'#101820',scarf:'#3df5c4'}},
+  {id:'khushi',name:'TGC KHUSHI',role:'MAIN CREW · TGC',desc:'Pink jacket, gold watch, never backs down. TGC Khushi stands with the crew no matter what.',o:{female:true,shirt:'#f15bb5',inner:'#ffffff',sleeves:'long',pants:'#1d3557',skin:'#e0ac69',hair:'#1b1b1b',hairStyle:'pony',shoes:'#ffffff',sole:'#f15bb5',watch:'#ffd23f'}},
   {id:'kai',name:'KAI',role:'Street Ronin',desc:'Silver spiky hair, red bomber jacket. Born for chaos.',o:{shirt:'#d62839',inner:'#f2f2f2',sleeves:'long',pants:'#1d1c22',skin:'#e0ac69',hair:'#e8eef7',hairStyle:'spiky',shoes:'#f2f2f2',sole:'#d62839',anime:false,scarf:'#14081c'}},
   {id:'vice',name:'VICE',role:'Beach Boss',desc:'Hawaiian shirt, shades, khaki shorts. Owns the strip.',o:{shirtMat:playerShirt,sleeves:'short',pants:'#d9cfb8',shorts:true,skin:'#d9a066',hair:'#3b2416',hairStyle:'short',shoes:'#f2f2f2',shades:true}},
   {id:'zara',name:'ZARA',role:'Gamer Queen',desc:'Purple bob, black hoodie, pink stripe. Never misses a shot.',o:{shirt:'#1d1c22',inner:'#ff3d7f',sleeves:'long',pants:'#3f5f8f',skin:'#c68642',hair:'#7c5cff',hairStyle:'short',shoes:'#ffffff',sole:'#7c5cff',female:true,anime:false}},
@@ -2961,7 +2962,7 @@ function startRobbery(){const d=ROB.door,f=d.face,sx=Math.sin(f),sz=Math.cos(f),
   for(let i=0;i<4;i++){const a=i/4*Math.PI*2;const x=d.x+sx*6+Math.sin(a)*4,z=d.z+sz*6+Math.cos(a)*4;const p=makePed(x,z,'gang');Object.assign(p,{shooter:true,mission:true,fight:true,hp:110,cool:1.5+i*0.3});peds.push(p)}
   const vx=d.x+sx*9,vz=d.z+sz*9;const van=makeCar('truck',vx,vz,f+Math.PI/2,{col:'#1b1b22'});van.persist=true;van.getaway=true;van.hp=420;cars.push(van);m.van=van;
   mission=m;big('STOP THE ROBBERY','HM, DM and SM are robbing the bank. Take them down!','#ff2a2a');sfx('star');addShake(0.3);
-  if(player.w===0&&player.ammo[1]<12){player.ammo[1]+=36;player.w=1;toast('Rudra threw you a pistol. Press 1-6 or GUN to switch weapons.',4)}
+  if(player.w===0&&player.ammo[1]<12){player.ammo[1]+=36;player.w=1;toast('TGC Rudra threw you a pistol. Press 1-6 or GUN to switch weapons.',4)}
   toast('The gang has a getaway van. Do not let them escape!',4)}
 function robberyKO(p){floatText(p.x,2.6,p.z,p.boss+' DOWN!','#ffd23f');sfx('pass')}
 function robberyTick(m,dt){
@@ -2992,7 +2993,7 @@ const TASKS=[
   {id:'gym',t:'Get Strong',story:'TGC Maxi trains at TGC Fitness every day. One session and your punches really land.',goal:'Do a training session at the gym',where:()=>DOORS.find(d=>d.type==='gym'),ev:'gym',reward:1200},
   {id:'race',t:'Street Race',story:'A rival crew says TGC drivers are slow. TGC Snowy says prove them wrong.',goal:'Win the Street Race mission at TGC HQ',where:()=>GIVERS[0],check:()=>done.race>0,reward:2000},
   {id:'fight',t:'Gully Fight',story:'The rival crew did not like losing. They are coming for the TGC crew. Protect the brotherhood.',goal:'Win the Street Fight mission at TGC HQ',where:()=>GIVERS[2],check:()=>done.fight>0,reward:3000},
-  {id:'tip',t:'Word on the Street',story:'Trouble. Rudra, a local who works near the city bank, has seen HM, DM and SM, the HDS gang, scouting the bank. They are planning a big robbery.',goal:'Talk to Rudra outside the city bank',where:()=>{const e=crewEnts.find(e=>e.m.id==='rudra');return e?{x:e.x,z:e.z}:bankDoor()},ev:'rudra',reward:1500},
+  {id:'tip',t:'Word on the Street',story:'Trouble. TGC Rudra, who keeps watch at the city bank, has seen HM, DM and SM, the HDS gang, scouting the bank. They are planning a big robbery.',goal:'Talk to TGC Rudra outside the city bank',where:()=>{const e=crewEnts.find(e=>e.m.id==='rudra');return e?{x:e.x,z:e.z}:bankDoor()},ev:'rudra',reward:1500},
   {id:'heist',t:'Stop the Robbery',story:'The HDS gang is hitting the bank RIGHT NOW. HM, DM and SM are armed and they have a getaway van. Stop them before they escape with the city cash.',goal:'Walk into the red pillar at the city bank and stop HM, DM and SM',where:()=>ROB,check:()=>done.robbery>0,reward:15000},
   {id:'badminton',t:'Sports Day',story:'TGC Sports City is open. TGC KEXI wants the crew to win something today.',goal:'Win a badminton match at TGC Badminton Arena',where:()=>VENUES[2],ev:'sportwin:badminton',reward:3000},
   {id:'six',t:'Six Machine',story:'The whole city is watching the cricket. Give them a show.',goal:'Hit a SIX at TGC Cricket Stadium',where:()=>VENUES[0],ev:'six',reward:3500},
@@ -3016,7 +3017,7 @@ function completeTask(){const T=curTask();if(!T)return;player.money+=T.reward;st
   setTimeout(()=>{if(N&&state==='play')toast('New task: '+N.t+'. '+N.goal,5);else if(!N)big('STORY COMPLETE','TGC forever. Brotherhood, loyalty, trust, faith.','#ffd23f')},3000)}
 function storyTick(){const T=curTask();if(T&&T.check&&T.check())completeTask();if(job&&inside&&inside.door===job.target){player.money+=job.reward;big('DELIVERED','+'+fmtMoney(job.reward),'#3df5c4');sfx('cash');job=null;save()}}
 function storyTarget(){if(job)return job.target;const T=curTask();return T&&T.where?T.where():null}
-function bossTalk(){const T=curTask();const me=callMe();if(T&&T.id==='meet'){showDialog(BOSS.name,`Welcome back, ${me}! The whole crew is here. Snowy, Sunny, KEXI, Maxi, Shah, Vansh and Equinox are waiting for your orders. This city is ours, and every member has a crazy task for you. First, get some wheels.`,[{t:'Let us go!',f:()=>storyEvent('boss')}],{pitch:0.9,rate:0.98})}
+function bossTalk(){const T=curTask();const me=callMe();if(T&&T.id==='meet'){showDialog(BOSS.name,`Welcome back, ${me}! The whole crew is here. Snowy, Sunny, KEXI, Khushi, Maxi, Shah, Vansh and Equinox are waiting for your orders. This city is ours, and every member has a crazy task for you. First, get some wheels.`,[{t:'Let us go!',f:()=>storyEvent('boss')}],{pitch:0.9,rate:0.98})}
   else{const lines=T?[`${me}, your task: ${T.t}. ${T.story}`]:['You did it all. TGC forever. Brotherhood, loyalty, trust and faith.'];showDialog(BOSS.name,lines[0],[{t:'Got it'}],{pitch:0.9,rate:0.98})}}
 function openTasks(){$('#taskBody').innerHTML=TASKS.map((T,i)=>`<div class="taskRow ${i<story.i?'done':i===story.i?'cur':''}"><b>${i+1}. ${T.t}</b><small>${i<=story.i?T.story:'Locked'}</small><span>${i<story.i?'✓ DONE':i===story.i?T.goal:''}</span><em>${fmtMoney(T.reward)}</em></div>`).join('');show('tasks')}
 
@@ -3245,12 +3246,12 @@ const CREW=[
     lines:['Vansh here. Give me any car and I will make it fly.','Open the door, sit down, feel the engine. That is how a real driver starts.','When the HDS gang runs, I chase.']},
   {id:'equinox',name:'TGC Equinox',tag:'CREW · NIGHT RIDER',o:{shirt:'#101820',inner:'#3df5c4',sleeves:'long',pants:'#101820',skin:'#e0ac69',hair:'#7cc6ff',hairStyle:'spiky',shades:true,shoes:'#3df5c4',sole:'#101820',scarf:'#3df5c4'},
     lines:['Equinox. The city looks best at night.','I watch the streets after dark. HM, DM and SM have been scouting the bank.','Ride with the crew, never alone.']},
-  {id:'kushi',name:'Kushi',tag:'LOCAL · TGC MALL',local:true,far:'mall',o:{female:true,shirt:'#f15bb5',inner:'#ffffff',sleeves:'short',pants:'#1d3557',skin:'#e0ac69',hair:'#1b1b1b',hairStyle:'pony',shoes:'#ffffff',sole:'#f15bb5'},voice:{pitch:1.15,female:true},
-    lines:['Hi! I am Kushi. I come to TGC Mall every weekend. Have you seen the new stairs and the cafe upstairs?','The TGC crew keeps this city safe. Thank you, Bhai!','Shopping first, chai later!']},
-  {id:'braj',name:'Braj',tag:'LOCAL · KIRANA',local:true,far:'kirana',o:{shirt:'#f6ae2d',inner:'#ffffff',sleeves:'short',pants:'#5c6f84',skin:'#c68642',hair:'#1b1b1b',hairStyle:'short',shoes:'#6b4423'},
-    lines:['Ram Ram! I am Braj. I help at the kirana store.','Sharma Uncle says TGC is family. I agree!','If you need snacks for the crew, you know where to find me.']},
-  {id:'rudra',name:'Rudra',tag:'LOCAL · CITY BANK',local:true,far:'bank',o:{shirt:'#1d3557',inner:'#a8dadc',sleeves:'long',pants:'#2b2a33',skin:'#8d5524',hair:'#1b1b1b',hairStyle:'buzz',beard:true,shoes:'#1d1a20'},voice:{pitch:0.9},
-    lines:['Rudra here. I work security near the city bank.','HM, DM and SM, the HDS gang, keep coming around the bank. They are planning a robbery, I am sure of it!','If they hit the bank, only TGC can stop them.']},
+  {id:'khushi',name:'TGC Khushi',tag:'MAIN CREW · TGC',o:{female:true,shirt:'#f15bb5',inner:'#ffffff',sleeves:'long',pants:'#1d3557',skin:'#e0ac69',hair:'#1b1b1b',hairStyle:'pony',shoes:'#ffffff',sole:'#f15bb5',watch:'#ffd23f'},voice:{pitch:1.15,female:true},
+    lines:['TGC Khushi here. Brotherhood, loyalty, trust and faith. That is TGC.','Have you seen the new stairs and the cafe upstairs at TGC Mall? Meet me there sometime.','The HDS gang thinks this city is theirs. We will show them it is not.']},
+  {id:'vraj',name:'TGC Vraj',tag:'SIDE CREW · KIRANA',local:true,far:'kirana',o:{shirt:'#f6ae2d',inner:'#ffffff',sleeves:'short',pants:'#5c6f84',skin:'#c68642',hair:'#1b1b1b',hairStyle:'short',shoes:'#6b4423'},
+    lines:['Ram Ram! I am TGC Vraj. I look after the kirana store for the crew.','Sharma Uncle says TGC is family. I agree!','If you need snacks for the crew, you know where to find me.']},
+  {id:'rudra',name:'TGC Rudra',tag:'SIDE CREW · CITY BANK',local:true,far:'bank',o:{shirt:'#1d3557',inner:'#a8dadc',sleeves:'long',pants:'#2b2a33',skin:'#8d5524',hair:'#1b1b1b',hairStyle:'buzz',beard:true,shoes:'#1d1a20'},voice:{pitch:0.9},
+    lines:['TGC Rudra here. I keep watch at the city bank for the crew.','HM, DM and SM, the HDS gang, keep coming around the bank. They are planning a robbery, I am sure of it!','If they hit the bank, only TGC can stop them.']},
 ];
 const crewEnts=[];
 function crewPos(m,i){if(m.giver)return{x:BOSS.x,z:BOSS.z};
@@ -3279,9 +3280,9 @@ function callMe(){const H=HEROES[heroIdx]||{};return H.call||H.name||'Bhai'}
 const INTRO=[
   {k:'A TGC PRODUCTION',h:'WELCOME TO TGC',p:'TGC, The Game Changers, is not just a group. It is a bond. Brotherhood, loyalty, trust and faith. That is what holds us together.'},
   {k:'THE OWNER',h:'TGC YASH',p:'This city was built by TGC Yash, the owner of TGC, together with the TGC core crew. We made it so that our friends and close ones can come in, play and enjoy it together.'},
-  {k:'THE CORE CREW',h:'THE BROTHERHOOD',p:'TGC Parth, our founding member. TGC Snowy, TGC Sunny and TGC KEXI, the main crew. TGC Shah, TGC Vansh, TGC Equinox and TGC Seal. And the whole TGC family: Maxi, Maddie, Aru, Ekkar, Akaza, Anni, Anuj, BNL Anmol, Hasan, Tarshan, Itlex, Jicks, Kratos, Mafia, Mohit, Rahul, Sadik and Sarkar.'},
+  {k:'THE CORE CREW',h:'THE BROTHERHOOD',p:'TGC Parth, our founding member. TGC Snowy, TGC Sunny, TGC KEXI and TGC Khushi, the main crew. TGC Shah, TGC Vansh, TGC Equinox and TGC Seal. And the whole TGC family: Maxi, Maddie, Aru, Ekkar, Akaza, Anni, Anuj, BNL Anmol, Hasan, Tarshan, Itlex, Jicks, Kratos, Mafia, Mohit, Rahul, Sadik and Sarkar.'},
   {k:'THE CITY',h:'CRAZY THINGS HAPPEN HERE',p:'A football stadium, a cricket ground, a badminton arena and the TGC Formula race track. Shops, a mall, TGC Club, and TGC Exclusive with hypercars nobody can steal. The crew has crazy, hard tasks waiting for you.'},
-  {k:'THE ENEMY',h:'THE HDS GANG',p:'HM, DM and SM. Three gangsters who want this city for themselves. They are planning a robbery at the city bank, and only TGC can stop them. Locals like Rudra, Kushi and Braj are counting on the crew.'},
+  {k:'THE ENEMY',h:'THE HDS GANG',p:'HM, DM and SM. Three gangsters who want this city for themselves. They are planning a robbery at the city bank, and only TGC can stop them. TGC Khushi, TGC Vraj and TGC Rudra are ready to fight for the city.'},
   {k:'WHAT IS NEXT',h:'MULTIPLAYER IS COMING',p:'Multiplayer is coming very soon. New features arrive day by day, and the TGC crew keeps making every part of the city better. Now go. The crew is waiting for you at TGC HQ.'},
 ];
 let introI=0,introDone=null;
